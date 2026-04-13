@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="EaIdleWebsite/EaIdleWebsite.csproj" Id="dae8e274-eeb0-4ce6-8a02-bc33ca0fbf8e" />
+  <Project Path="MyAPI/MyAPI.csproj" />
+</Solution>
