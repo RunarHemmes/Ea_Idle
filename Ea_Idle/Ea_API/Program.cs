@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Ea_API.Data;
+using Ea_API.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddRepositories();
+builder.Services.AddControllers();
 // Add services to the container.
 
 builder.Services.AddControllers();

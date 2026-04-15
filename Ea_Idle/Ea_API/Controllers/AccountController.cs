@@ -1,21 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ea_API.Data;
 using Ea_API.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ea_API.Controllers
 {
     public class AccountController : ControllerBase
     {
-        //private readonly [DBContext] _context;
+        private readonly EaIdleDbContext _context;
 
-        public AccountController()
+        public AccountController(EaIdleDbContext context)
         {
-            //_context = context;
+            _context = context;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Account>>> GetAll()
         {
-            throw new NotImplementedException();
+            List<Account> result = await _context.Accounts.ToListAsync();
+            return Ok(result);
         }
     }
 }

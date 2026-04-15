@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Ea_API.Models;
+using Ea_API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ea_API.Controllers
 {
     public class GameProgressController : ControllerBase
     {
-        //private readonly [DBContext] _context;
+        private readonly EaIdleDbContext _context;
 
-        public GameProgressController()
+        public GameProgressController(EaIdleDbContext context)
         {
-            //_context = context;
+            _context = context;
         }
 
         [HttpGet]
@@ -17,5 +19,6 @@ namespace Ea_API.Controllers
         {
             throw new NotImplementedException();
         }
+
     }
 }
