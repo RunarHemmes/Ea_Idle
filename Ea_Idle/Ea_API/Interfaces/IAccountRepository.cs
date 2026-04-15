@@ -6,7 +6,13 @@ namespace Ea_API.Interfaces
     {
         public List<Account> GetAll();
 
+        public int? GetHighestId();
+
         public Account? Get(int id);
+
+        public Account? GetByUsername(string username);
+
+        public Account? GetByEmail(string email);
 
         public Account Add(Account account);
 

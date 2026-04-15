@@ -7,8 +7,13 @@ namespace Ea_API.IoC
     {
         public static void AddRepositories(this IServiceCollection services)
         {
-            services.AddSingleton<IAccountRepository, AccountRepository>();
-            services.AddSingleton<IGameProgressRepository, GameProgressRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IGameProgressRepository, GameProgressRepository>();
         }
+
+        //public static void AddServices(this IServiceCollection services)
+        //{
+        //    services.AddScoped<ITokenService, TokenService>();
+        //}
     }
 }
