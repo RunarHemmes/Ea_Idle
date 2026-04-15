@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ea_API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class GameProgressController : ControllerBase
     {
         private readonly EaIdleDbContext _context;

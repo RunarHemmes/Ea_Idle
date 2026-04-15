@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ea_API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly EaIdleDbContext _context;
