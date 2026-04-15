@@ -1,33 +1,49 @@
-﻿using Ea_API.Models;
+﻿using Ea_API.Data;
 using Ea_API.Interfaces;
+using Ea_API.Models;
 
 namespace Ea_API.Repositories
 {
     public class AccountRepository : IAccountRepository
     {
+        private readonly EaIdleDbContext _context;
+
+        public AccountRepository(EaIdleDbContext context)
+        {
+            _context = context;
+        }
+
         public List<Account> GetAll()
         {
-            throw new NotImplementedException();
+            List<Account> result = _context.Accounts.ToList();
+            return result;
         }
 
         public Account? Get(int id)
         {
-            throw new NotImplementedException();
+            Account result = _context.Accounts.Single(a => a.Id == id);
+            return result;
         }
 
         public Account Add(Account account)
         {
-            throw new NotImplementedException();
+            _context.Add(account);
+            _context.SaveChanges();
+            return account;
         }
 
         public Account? Update(Account account)
         {
-            throw new NotImplementedException();
+            _context.Update(account);
+            _context.SaveChanges();
+            return account;
         }
 
         public Account? Delete(Account account)
         {
-            throw new NotImplementedException();
+            _context.Remove(account);
+            _context.SaveChanges();
+            return account;
         }
     }
 }

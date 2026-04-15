@@ -1,33 +1,49 @@
 ﻿using Ea_API.Models;
 using Ea_API.Interfaces;
+using Ea_API.Data;
 
 namespace Ea_API.Repositories
 {
     public class GameProgressRepository : IGameProgressRepository
     {
+        private readonly EaIdleDbContext _context;
+
+        public GameProgressRepository(EaIdleDbContext context)
+        {
+            _context = context;
+        }
+
         public List<GameProgress> GetAll()
         {
-            throw new NotImplementedException();
+            List<GameProgress> result = _context.GameProgresses.ToList();
+            return result;
         }
 
         public GameProgress? Get(int id)
         {
-            throw new NotImplementedException();
+            GameProgress result = _context.GameProgresses.Single(g => g.Id == id);
+            return result;
         }
 
         public GameProgress Add(GameProgress progress)
         {
-            throw new NotImplementedException();
+            _context.Add(progress);
+            _context.SaveChanges();
+            return progress;
         }
 
         public GameProgress? Update(GameProgress progress)
         {
-            throw new NotImplementedException();
+            _context.Update(progress);
+            _context.SaveChanges();
+            return progress;
         }
 
         public GameProgress? Delete(GameProgress progress)
         {
-            throw new NotImplementedException();
+            _context.Remove(progress);
+            _context.SaveChanges();
+            return progress;
         }
 
     }
