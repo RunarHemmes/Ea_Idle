@@ -12,9 +12,8 @@ builder.Services.AddDbContext<EaIdleDbContext>(options => options.UseSqlite(buil
 builder.Services.AddRepositories();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
-// JWT auth.
+// Add JWT authentication.
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

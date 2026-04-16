@@ -10,10 +10,5 @@ namespace Ea_API.IoC
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IGameProgressRepository, GameProgressRepository>();
         }
-
-        //public static void AddServices(this IServiceCollection services)
-        //{
-        //    services.AddScoped<ITokenService, TokenService>();
-        //}
     }
 }

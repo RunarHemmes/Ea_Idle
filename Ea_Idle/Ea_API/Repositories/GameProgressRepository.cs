@@ -65,19 +65,6 @@ namespace Ea_API.Repositories
             }
         }
 
-        //public GameProgress? GetByEmail(string email)
-        //{
-        //    try
-        //    {
-        //        GameProgress result = _context.GameProgresses.Single(a => a.Email == email);
-        //        return result;
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
-
         public GameProgress Add(GameProgress progress)
         {
             try

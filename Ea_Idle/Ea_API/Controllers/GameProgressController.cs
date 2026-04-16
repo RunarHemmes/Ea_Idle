@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Ea_API.Models;
-using Ea_API.Data;
-using Microsoft.EntityFrameworkCore;
-using Ea_API.Repositories;
 using Ea_API.Interfaces;
 
 namespace Ea_API.Controllers
