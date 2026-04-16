@@ -1,6 +1,9 @@
 # Ea_Idle
 This is the repository in wich Eä Idle will be developed.
 
+Ea Idle will be a webgame, themed around Lord Of The Rings. 
+Users will be able to log in to retrieve their progress, and gain points to buy upgrades, prestige, and start again.
+
 ---
 
 # Branching strategie
