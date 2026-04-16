@@ -34,7 +34,7 @@ namespace Ea_API.Controllers
         }
 
         [HttpPut("Update{accountId}")]
-        public async Task<ActionResult<GameProgress>> Update(GameProgress gameProgress)
+        public async Task<ActionResult<GameProgress>> Update([FromBody] GameProgress gameProgress)
         {
             try
             {
