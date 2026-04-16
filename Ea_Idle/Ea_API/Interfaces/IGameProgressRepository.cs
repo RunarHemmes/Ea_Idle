@@ -6,7 +6,11 @@ namespace Ea_API.Interfaces
     {
         public List<GameProgress> GetAll();
 
-        public GameProgress? Get(int id);
+        public int? GetHighestId();
+
+        public GameProgress? GetById(int id);
+
+        public GameProgress? GetByAccountId(int accountId);
 
         public GameProgress Add(GameProgress progress);
 

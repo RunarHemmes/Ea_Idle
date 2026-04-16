@@ -34,29 +34,35 @@ namespace Ea_API.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<Account>> Login(string username, string password)
         {
-            Account? userAccount = _repo.GetByUsername(username);
-
-            if (userAccount != null)
+            try
             {
-                if (userAccount.Password == password)
+                Account? userAccount = _repo.GetByUsername(username);
+
+                if (userAccount != null)
                 {
-                    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-                    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+                    if (userAccount.Password == password)
+                    {
+                        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+                        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-                    var token = new JwtSecurityToken(
-                        issuer: _config["Jwt:Issuer"],
-                        audience: _config["Jwt:Audience"],
-                        claims: new[] { new Claim(ClaimTypes.Name, username) },
-                        expires: DateTime.Now.AddHours(1),
-                        signingCredentials: credentials
-                    );
+                        var token = new JwtSecurityToken(
+                            issuer: _config["Jwt:Issuer"],
+                            audience: _config["Jwt:Audience"],
+                            claims: new[] { new Claim(ClaimTypes.Name, username) },
+                            expires: DateTime.Now.AddHours(1),
+                            signingCredentials: credentials
+                        );
 
-                    var t = new JwtSecurityTokenHandler().WriteToken(token);
+                        var t = new JwtSecurityTokenHandler().WriteToken(token);
 
-                    return Ok(new{ User = userAccount, Token = t });
+                        return Ok(new { User = userAccount, Token = t });
+                    }
                 }
+                return BadRequest("The username or password is incorrect.");
+            } catch
+            {
+                return StatusCode(500, "Something went wrong internally.");
             }
-            return BadRequest("The username or password is incorrect.");
         }
 
         [HttpPost("Register")]

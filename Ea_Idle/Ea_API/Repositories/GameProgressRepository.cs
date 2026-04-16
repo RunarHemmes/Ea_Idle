@@ -15,35 +15,109 @@ namespace Ea_API.Repositories
 
         public List<GameProgress> GetAll()
         {
-            List<GameProgress> result = _context.GameProgresses.ToList();
-            return result;
+            try
+            {
+                List<GameProgress> result = _context.GameProgresses.ToList();
+                return result;
+            }
+            catch
+            {
+                throw new Exception("GetAll exception");
+            }
         }
 
-        public GameProgress? Get(int id)
+        public int? GetHighestId()
         {
-            GameProgress result = _context.GameProgresses.Single(g => g.Id == id);
-            return result;
+            try
+            {
+                int result = _context.GameProgresses.OrderBy(g => g.Id).First().Id;
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
         }
+
+        public GameProgress? GetById(int id)
+        {
+            try
+            {
+                GameProgress result = _context.GameProgresses.Single(g => g.Id == id);
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public GameProgress? GetByAccountId(int accountId)
+        {
+            try
+            {
+                GameProgress result = _context.GameProgresses.Single(g => g.AccountId == accountId);
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        //public GameProgress? GetByEmail(string email)
+        //{
+        //    try
+        //    {
+        //        GameProgress result = _context.GameProgresses.Single(a => a.Email == email);
+        //        return result;
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
 
         public GameProgress Add(GameProgress progress)
         {
-            _context.Add(progress);
-            _context.SaveChanges();
-            return progress;
+            try
+            {
+                _context.Add(progress);
+                _context.SaveChanges();
+                return progress;
+            }
+            catch
+            {
+                throw new Exception("Something went wrong when adding a new GameProgress.");
+            }
         }
 
         public GameProgress? Update(GameProgress progress)
         {
-            _context.Update(progress);
-            _context.SaveChanges();
-            return progress;
+            try
+            {
+                _context.Update(progress);
+                _context.SaveChanges();
+                return progress;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public GameProgress? Delete(GameProgress progress)
         {
-            _context.Remove(progress);
-            _context.SaveChanges();
-            return progress;
+            try
+            {
+                _context.Remove(progress);
+                _context.SaveChanges();
+                return progress;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
     }
