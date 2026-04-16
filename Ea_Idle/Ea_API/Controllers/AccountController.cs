@@ -21,12 +21,6 @@ namespace Ea_API.Controllers
             _config = config;
         }
 
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<List<Account>>> GetAll()
-        {
-            return Ok(_repo.GetAll());
-        }
-
         [HttpPost("Login")]
         public async Task<ActionResult<Account>> Login(string username, string password)
         {
