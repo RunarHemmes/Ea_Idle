@@ -38,7 +38,7 @@ namespace Ea_API.Controllers
                 {
                     if (userAccount.Password == password)
                     {
-                        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+                        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"])); //Warning can be ignored, this (should) always get a string, not null.
                         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
                         var token = new JwtSecurityToken(
