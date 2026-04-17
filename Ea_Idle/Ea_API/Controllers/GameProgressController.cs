@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Ea_API.Models;
 using Ea_API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ea_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class GameProgressController : ControllerBase

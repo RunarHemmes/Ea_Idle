@@ -1,5 +1,6 @@
 ﻿using Ea_API.Interfaces;
 using Ea_API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,6 +22,7 @@ namespace Ea_API.Controllers
             _config = config;
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<ActionResult<Account>> Login(string username, string password)
         {
@@ -55,6 +57,7 @@ namespace Ea_API.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<ActionResult<Account>> Register(string username, string email, string password)
         {
