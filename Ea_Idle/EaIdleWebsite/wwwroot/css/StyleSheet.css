@@ -1,7 +1,9 @@
 ﻿body {
     font-family: "Cinzel Decorative", serif;
     background: #111111;
-    color: #C0C0C0
+    color: #C0C0C0;
+    display: flex;
+    flex-direction: column;
 }
 
 button {
@@ -9,16 +11,37 @@ button {
 }
 
 nav {
+    order: 2;
     display: flex;
     flex-direction: row;
     position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
+    height: 13.5vw;
 }
 
 .Nav_Btn {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    border-color: #ffffff;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+.Nav_Txt {
+    display: none;
+}
+
+.Nav_Img {
+    /* padding: 10px; */
+    height: 10vw;
+    width: 10vw;
 }
 
 #sp_Img {
@@ -43,8 +66,88 @@ nav {
 
 #top_bar {
     display: flex;
-    flex-direction: row;
     align-content: center;
-    justify-content: center;
     height: 15vw;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#app {
+    order: 1;
+}
+
+/* ================
+CSS for desktop 
+=================*/
+@media (min-width: 1024px) {
+    body {
+        flex-direction: row;
+    }
+
+    nav {
+        order: 1;
+        height: 100%;
+        bottom: 0;
+        flex-direction: column;
+        width: 15vw;
+        left: 0;
+        top: 0;
+        right: unset;
+    }
+
+    .Nav_Btn {
+        height: 13%;
+        width: 100%;
+    }
+
+    .Nav_Txt {
+        display: block;
+        font-size: 2vw;
+        padding: 0;
+        margin: 0;
+    }
+
+    .Nav_Img {
+        height: 3.5vw;
+        width: 3.5vw;
+        padding: 0;
+        padding-top: 0.4vw;
+    }
+
+    #sp_Img {
+        width: 7vw;
+        height: 7vw;
+        align-self: center;
+        padding-right: 10px;
+    }
+
+    #sp_Display {
+        margin: 0;
+        font-size: 7vw;
+        font-weight: 600;
+    }
+
+    #sp_Div {
+        width: 100vw;
+    }
+
+    #top_bar {
+        max-width: 100%;
+        right: 0;
+        left: auto;
+        height: 9vw;
+    }
+
+    #app {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 80vw;
+        height: 100vw;
+        order: 2;
+        margin-left: 20vw;
+        padding: 0;
+    }
 }

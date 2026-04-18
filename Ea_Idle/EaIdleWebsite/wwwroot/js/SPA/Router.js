@@ -32,7 +32,7 @@
     }
 
     async toRoute() {
-        debugger;
+        //debugger;
         const path = window.location.pathname;
         const route = this.routes[path];
         const response = await fetch(route);
