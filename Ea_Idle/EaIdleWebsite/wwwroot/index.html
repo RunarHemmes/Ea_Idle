@@ -3,10 +3,20 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <script type="module" src="js/SPA/App.js"></script>
 </head>
 <body>
     <p>Hello there! ...  Master Kenobi!!</p>
-    <div id="contentDiv"></div>
+
+    <div id="app"></div>
+    <nav>
+        <button id="Nav_Mining" onclick="navigateTo('/Mining')">Mining</button>
+        <button id="Nav_Tharni" onclick="navigateTo('/Tharni')">Tharni</button>
+        <button id="Nav_Castar" onclick="navigateTo('/Castar')">Castar</button>
+        <button id="Nav_Silmaril" onclick="navigatTo('/Silmaril')">Silmaril</button>
+        <button id="Nav_Help" onclick="navigateTo('/Help')">Help</button>
+        <button id="Nav_Settings" onclick="navigateTo('/Settings')">Settings</button>
+        <button id="Nav_Credits" onclick="navigateTo('/Credits')">Credits</button>
+    </nav>
+    <script type="module" src="./js/SPA/App.js"></script>
 </body>
 </html>

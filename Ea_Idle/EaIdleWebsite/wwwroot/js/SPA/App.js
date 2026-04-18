@@ -1,5 +1,13 @@
-﻿class App {
+﻿import Router from './Router.js'
+
+class App {
+    #rootEl;
+    router;
     constructor() {
-        document.getElementById("contentDiv").innerHTML = `<H1>I'm the first page!!</H1>'`
+        this.#rootEl = document.getElementById('app');
+        this.router = new Router;
+        this.router.init();
     }
 }
+
+const app = new App();
