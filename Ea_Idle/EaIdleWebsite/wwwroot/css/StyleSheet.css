@@ -1,2 +1,50 @@
 ﻿body {
+    font-family: "Cinzel Decorative", serif;
+    background: #111111;
+    color: #C0C0C0
+}
+
+button {
+    font-family: "Cinzel Decorative", serif;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.Nav_Btn {
+    flex-grow: 1;
+}
+
+#sp_Img {
+    width: 10vw;
+    height: 10vw;
+    align-self: center;
+    padding-right: 10px;
+}
+
+#sp_Display {
+    font-size: 10vw;
+    font-weight: 650;
+}
+
+#sp_Div {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    width: 100%;
+    justify-content: center;
+}
+
+#top_bar {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    height: 15vw;
 }

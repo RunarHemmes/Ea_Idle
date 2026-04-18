@@ -3,19 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet"/>
+    <link href="css/StyleSheet.css" rel="stylesheet" />
 </head>
 <body>
-    <p>Hello there! ...  Master Kenobi!!</p>
-
     <div id="app"></div>
     <nav>
-        <button id="Nav_Mining" onclick="navigateTo('/Mining')">Mining</button>
-        <button id="Nav_Tharni" onclick="navigateTo('/Tharni')">Tharni</button>
-        <button id="Nav_Castar" onclick="navigateTo('/Castar')">Castar</button>
-        <button id="Nav_Silmaril" onclick="navigatTo('/Silmaril')">Silmaril</button>
-        <button id="Nav_Help" onclick="navigateTo('/Help')">Help</button>
-        <button id="Nav_Settings" onclick="navigateTo('/Settings')">Settings</button>
-        <button id="Nav_Credits" onclick="navigateTo('/Credits')">Credits</button>
+        <button class="Nav_Btn" id="Nav_Mining" onclick="navigateTo('/Mining')">Mining</button>
+        <button class="Nav_Btn" id="Nav_Tharni" onclick="navigateTo('/Tharni')">Tharni</button>
+        <button class="Nav_Btn" id="Nav_Castar" onclick="navigateTo('/Castar')">Castar</button>
+        <button class="Nav_Btn" id="Nav_Silmaril" onclick="navigatTo('/Silmaril')">Silmaril</button>
+        <button class="Nav_Btn" id="Nav_Help" onclick="navigateTo('/Help')">Help</button>
+        <button class="Nav_Btn" id="Nav_Settings" onclick="navigateTo('/Settings')">Settings</button>
+        <button class="Nav_Btn" id="Nav_Credits" onclick="navigateTo('/Credits')">Credits</button>
     </nav>
     <script type="module" src="./js/SPA/App.js"></script>
 </body>
