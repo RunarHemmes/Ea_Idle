@@ -8,6 +8,8 @@ class App {
         this.router = new Router;
         this.router.init();
     }
+
+    
 }
 
 const app = new App();
