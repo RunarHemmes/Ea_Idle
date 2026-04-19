@@ -32,6 +32,15 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSPA",
+        policy => policy.WithOrigins("https://localhost:7020") // Replace with your SPA's URL
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
@@ -42,10 +51,14 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseCors("AllowSPA");
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseRouting();
+
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
