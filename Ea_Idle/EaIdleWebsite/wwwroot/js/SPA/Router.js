@@ -37,9 +37,9 @@
         const route = this.routes[path];
         const response = await fetch(route);
         const html = await response.text();
-
         const content = html || this.notFound;
         document.getElementById("app").innerHTML = content;
+        window.dispatchEvent(new CustomEvent("miningLoaded"));
     }
 }
 
