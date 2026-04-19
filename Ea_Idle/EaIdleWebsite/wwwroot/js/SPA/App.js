@@ -12,12 +12,13 @@ class App {
         //this.game = new GameLogic(this.#rootEl);
         //this.game.mainLoop();
 
-        window.addEventListener("miningLoaded", this.setupGame)
+        window.addEventListener("miningLoaded", this.setupGame);
     }
 
     setupGame() {
         this.game = new GameLogic();
         this.game.mainLoop();
+        //window.removeEventListener("miningLoaded", this.setupGame);
     }
 }
 

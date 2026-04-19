@@ -11,11 +11,13 @@
         this.spDisplay = document.getElementById("sp_Display");
         //this.spDisplay = 
         this.spTime = 5000;
-        this.updateSpDisplay();
+        //this.updateSpDisplay();
+        window.dispatchEvent(new CustomEvent("UpdateSP"));
     }
 
     mainLoop() {
         setTimeout(this.gainSP.bind(this), this.spTime);
+        window.addEventListener("UpdateSP", this.updateSpDisplay.bind(this));
     }
 
     updateSpDisplay() {
@@ -24,7 +26,8 @@
 
     gainSP() {
         this.sp += this.spGain;
-        this.updateSpDisplay();
+        //this.updateSpDisplay();
+        window.dispatchEvent(new CustomEvent("UpdateSP"));
         this.mainLoop();
     }
 }

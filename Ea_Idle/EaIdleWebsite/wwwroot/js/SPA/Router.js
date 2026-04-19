@@ -39,7 +39,9 @@
         const html = await response.text();
         const content = html || this.notFound;
         document.getElementById("app").innerHTML = content;
-        window.dispatchEvent(new CustomEvent("miningLoaded"));
+        if (path == "/Mining" || path == "/") {
+            window.dispatchEvent(new CustomEvent("miningLoaded"));
+        }
     }
 }
 

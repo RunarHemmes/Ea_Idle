@@ -32,10 +32,17 @@ nav {
     border-color: #ffffff;
     border-radius: 20px;
     justify-content: center;
+    background-color: #111111;
+/*    user-select:text;*/
+}
+
+.Nav_Btn:focus {
+    background-color: #333442;
 }
 
 .Nav_Txt {
     display: none;
+    color: #C0C0C0;
 }
 
 .Nav_Img {
@@ -54,6 +61,11 @@ nav {
 #sp_Display {
     font-size: 10vw;
     font-weight: 650;
+}
+
+#sp_Display:focus {
+    border-style: solid;
+    border-color: #ffffff;
 }
 
 #sp_Div {
