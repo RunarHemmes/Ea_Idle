@@ -3,15 +3,11 @@
     spGain;
     spDisplay;
     spTime;
-    //app;
     constructor() {
-        //this.app = app;
         this.sp = 0;
         this.spGain = 1;
         this.spDisplay = document.getElementById("sp_Display");
-        //this.spDisplay = 
         this.spTime = 5000;
-        //this.updateSpDisplay();
         window.dispatchEvent(new CustomEvent("UpdateSP"));
     }
 
@@ -26,7 +22,6 @@
 
     gainSP() {
         this.sp += this.spGain;
-        //this.updateSpDisplay();
         window.dispatchEvent(new CustomEvent("UpdateSP"));
         this.mainLoop();
     }

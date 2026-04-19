@@ -11,7 +11,7 @@
             "/Silmaril": '../../views/notImplemented.html',
             "/Help": '../../views/notImplemented.html',
             "/Settings": '../../views/notImplemented.html',
-            "/Credits": '../../views/credits.html',
+            "/Credits": '../../views/notImplemented.html',
 
         };
         this.notFound = "<h1>404</h1><p>Not found.</p>";
@@ -32,7 +32,6 @@
     }
 
     async toRoute() {
-        //debugger;
         const path = window.location.pathname;
         const route = this.routes[path];
         const response = await fetch(route);

@@ -9,8 +9,6 @@ class App {
         this.#rootEl = document.getElementById('app');
         this.router = new Router;
         this.router.init();
-        //this.game = new GameLogic(this.#rootEl);
-        //this.game.mainLoop();
 
         window.addEventListener("miningLoaded", this.setupGame);
     }
@@ -18,7 +16,6 @@ class App {
     setupGame() {
         this.game = new GameLogic();
         this.game.mainLoop();
-        //window.removeEventListener("miningLoaded", this.setupGame);
     }
 }
 
