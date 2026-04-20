@@ -25,14 +25,12 @@ class GameLogic {
 
     async retrieveSave() {
         const progress = await this.api.GetProgress();
-        debugger;
         this.sp = progress.silverPennies;
         window.dispatchEvent(new CustomEvent("UpdateSP"));
     }
 
     async saveGame() {
         const progress = await this.api.saveProgress(new Progress(this.sp));
-        debugger;
     }
 
     mainLoop() {

@@ -28,8 +28,6 @@ class ProgressAPI {
         const data = await response.json();
         const spAmount = parseInt(data.silverPennies);
         const progress = new Progress(spAmount);
-        debugger;
-        debugger;
         return progress;
     }
 
@@ -47,9 +45,6 @@ class ProgressAPI {
         console.log(response);
 
         if (!response.ok) {
-            if (response.status == 400) {
-                this.NewProgress();
-            }
             return null;
         }
         const data = await response.json();
@@ -79,17 +74,11 @@ class ProgressAPI {
         console.log(response);
 
         if (!response.ok) {
-            if (response.status == 400) {
-                const newSave = this.NewProgress();
-                return newSave;
-            }
             return null;
         }
         const data = await response.json();
         const spAmount = parseInt(data.silverPennies);
         const newProgress = new Progress(spAmount);
-        debugger;
-        debugger;
         return newProgress;
     }
 }
