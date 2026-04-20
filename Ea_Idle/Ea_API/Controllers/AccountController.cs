@@ -24,15 +24,15 @@ namespace Ea_API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<ActionResult<Account>> Login(string username, string password)
+        public async Task<ActionResult<Account>> Login([FromBody] LoginModel loginModel)
         {
             try
             {
-                Account? userAccount = _repo.GetByUsername(username);
+                Account? userAccount = _repo.GetByUsername(loginModel.Username);
 
                 if (userAccount != null)
                 {
-                    if (userAccount.Password == password)
+                    if (userAccount.Password == loginModel.Password)
                     {
                         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"])); //Warning can be ignored, this (should) always get a string, not null.
                         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -40,14 +40,14 @@ namespace Ea_API.Controllers
                         var token = new JwtSecurityToken(
                             issuer: _config["Jwt:Issuer"],
                             audience: _config["Jwt:Audience"],
-                            claims: new[] { new Claim(ClaimTypes.Name, username) },
+                            claims: new[] { new Claim(ClaimTypes.Name, loginModel.Username) },
                             expires: DateTime.Now.AddHours(1),
                             signingCredentials: credentials
                         );
 
                         var t = new JwtSecurityTokenHandler().WriteToken(token);
 
-                        return Ok(new { User = userAccount, Token = t });
+                        return Ok(new { user = userAccount, token = t });
                     }
                 }
                 return BadRequest("The username or password is incorrect.");
