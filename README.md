@@ -7,6 +7,11 @@ I implemented a security measure to mitigate threat number 21: Spoofing the SPA 
 This now means that all endpoints need authentication, except the login and register endpoints, because the user needs to be logged in to an account to get a token.
 
 ---
+# First datastream
+The first datastream from frontend to database is done.
+After 30 seconds on the opening page of the website, the progress will get stored in the database.
+
+---
 
 # Branching strategy
 ### main:
