@@ -5,21 +5,34 @@ Ea Idle will be a webgame, themed around Lord Of The Rings.
 Users will be able to log in to retrieve their progress, and gain points to buy upgrades, prestige, and start again.
 
 ---
+# Mitigated threat
+I implemented a security measure to mitigate threat number 21: Spoofing the SPA Process. I did this by implementing authentication via JSON Web Tokens (JWT). This can be seen in the following codefiles in the Ea_API project: program.cs, AccountController.cs, GameProgressController.cs.
+This now means that all endpoints need authentication, except the login and register endpoints, because the user needs to be logged in to an account to get a token.
 
-# Branching strategie
+---
+# First datastream
+The first datastream from frontend to database is done.
+After 30 seconds on the opening page of the website, the progress will get stored in the database.
+
+---
+
+# Branching strategy
 ### main:
-Hier komt de uiteindelijke code te staan.
-Het is niet de bedoeling dat hier met directe commits features of fixes naar gedaan worden.
+This is the branch with the final code.
+Code or other changes should not be commited directly to this branch, except readme changes.
 
 ### dev:
-Hier worden alle features eerst verzameld en samen getest, dan pas kan er met main gemergd worden.
+All the code from features is gathered here, and when approved, merged with main.
 
 ### feat/:
-Op de feat/ branches worden de features ontwikkeld en getest, daarna kan er gemergd worden met de dev branch.
-De naam van een feat/ branch is altijd als volgt: feat/naam_van_feature
+On these branches, the code for a single feature is developed. When the code is ready and reviewed, it is merged with dev.
+
+These branches should follow this naming convention: feat/name_of_feature.
 
 ### hotfix/:
-Op de hotfix/ branches worden hotfixes gemaakt voor de main en/of develop branch. Deze kunnen na het testen met main en/of develop gemergd worden.
+On these branches, hotfixes are made, which can be merged with main, though best is to merge with dev first.
+
+These branches should follow this naming convention: hotfix/name_of_hotfix.
 
 
 

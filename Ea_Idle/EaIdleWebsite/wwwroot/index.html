@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet"/>
+    <link href="css/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app"></div>
+    <nav>
+        <button aria-describedby="Nav_Mining_Txt" tabindex="1" class="Nav_Btn" id="Nav_Mining" onclick="navigateTo('/Mining')">
+            <img class="Nav_Img" src="images/Silver Penny.png" height="50" width="50" />
+            <p id="Nav_Mining_Txt" class="Nav_Txt">Mining</p>
+        </button>
+        <button aria-describedby="Nav_Tharni_Txt" tabindex="2" class="Nav_Btn" id="Nav_Tharni" onclick="navigateTo('/Tharni')">
+            <img class="Nav_Img" src="images/Silver Penny.png" height="50" width="50" />
+            <p id="Nav_Tharni_Txt" class="Nav_Txt">Tharni</p>
+        </button>
+        <button aria-describedby="Nav_Castar_Txt" tabindex="3" class="Nav_Btn" id="Nav_Castar" onclick="navigateTo('/Castar')">
+            <img class="Nav_Img" src="images/Silver Penny.png" height="50" width="50" />
+            <p id="Nav_Castar_Txt" class="Nav_Txt">Castar</p>
+        </button>
+        <button aria-describedby="Nav_Silmaril_Txt" tabindex="4" class="Nav_Btn" id="Nav_Silmaril" onclick="navigateTo('/Silmaril')">
+            <img class="Nav_Img" src="images/Silver Penny.png" height="50" width="50" />
+            <p id="Nav_Silmaril_Txt" class="Nav_Txt">Silmaril</p>
+        </button>
+        <button aria-describedby="Nav_Help_Txt" tabindex="5" class="Nav_Btn" id="Nav_Help" onclick="navigateTo('/Help')">
+            <img class="Nav_Img" src="images/Silver Penny.png" height="50" width="50" />
+            <p id="Nav_Help_Txt" class="Nav_Txt">Help</p>
+        </button>
+        <button aria-describedby="Nav_Settings_Txt" tabindex="6" class="Nav_Btn" id="Nav_Settings" onclick="navigateTo('/Settings')">
+            <img class="Nav_Img" src="images/Silver Penny.png" height="50" width="50" />
+            <p id="Nav_Settings_Txt" class="Nav_Txt">Settings</p>
+        </button>
+        <button aria-describedby="Nav_Credits_Txt" tabindex="7" class="Nav_Btn" id="Nav_Credits" onclick="navigateTo('/Credits')">
+            <img class="Nav_Img" src="images/Silver Penny.png" height="50" width="50" />
+            <p id="Nav_Credits_Txt" class="Nav_Txt">Credits</p>
+        </button>
+    </nav>
+    <script type="module" src="./js/SPA/App.js"></script>
+</body>
+</html>
