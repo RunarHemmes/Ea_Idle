@@ -1,4 +1,4 @@
-﻿export class Router {
+﻿class Router {
     routes;
     notFound;
 
@@ -12,7 +12,6 @@
             "/Help": '../../views/notImplemented.html',
             "/Settings": '../../views/notImplemented.html',
             "/Credits": '../../views/notImplemented.html',
-
         };
         this.notFound = "<h1>404</h1><p>Not found.</p>";
     }
@@ -38,10 +37,11 @@
         const html = await response.text();
         const content = html || this.notFound;
         document.getElementById("app").innerHTML = content;
-        debugger
+        debugger;
         const routeParts = route.split("/");
         const eventName = routeParts[routeParts.length - 1];
         window.dispatchEvent(new CustomEvent(eventName));
-        }
     }
 }
+
+export default Router;

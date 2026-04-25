@@ -1,6 +1,8 @@
-﻿import GameLogic from "../Game/GameLogic";
+﻿import GameLogic from "../Game/GameLogic.js";
 
-export class Displays {
+class Displays {
+    gamelogic
+
     constructor(gameLogic) {
         this.gameLogic = gameLogic;
 
@@ -18,3 +20,5 @@ export class Displays {
 
 
 }
+
+export default Displays;

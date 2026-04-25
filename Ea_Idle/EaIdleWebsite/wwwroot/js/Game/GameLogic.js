@@ -1,4 +1,4 @@
-﻿export class GameLogic {
+﻿class GameLogic {
     constructor() {
 
     }
@@ -7,3 +7,5 @@
 
     }
 }
+
+export default GameLogic;

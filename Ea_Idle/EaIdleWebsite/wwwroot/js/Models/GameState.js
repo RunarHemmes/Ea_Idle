@@ -1,5 +1,7 @@
-﻿export class GameState {
+﻿class GameState {
     constructor() {
 
     }
 }
+
+export default GameState;
