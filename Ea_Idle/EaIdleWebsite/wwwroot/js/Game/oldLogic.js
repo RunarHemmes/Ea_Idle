@@ -49,4 +49,4 @@ class GameLogic {
     }
 }
 
-export default GameLogic;
+//export default GameLogic;

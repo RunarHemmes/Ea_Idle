@@ -5,4 +5,4 @@
     }
 }
 
-export default Progress;
+//export default Progress;

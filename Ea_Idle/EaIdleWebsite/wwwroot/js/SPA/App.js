@@ -1,27 +1,13 @@
-﻿import Router from './Router.js'
-import GameLogic from '../Game/Logic.js'
-import AccountAPI from '../API/AccountAPI.js'
+﻿import Router from './Router.js';
+import Displays from './Displays.js';
+import GameLogic from '../Game/GameLogic.js';
+import GameState from '../Models/GameState.js';
 
-class App {
-    #rootEl;
-    router;
-    game;
-    accountApi;
+export class App {
     constructor() {
-        this.#rootEl = document.getElementById('app');
-        this.accountApi = new AccountAPI();
-        this.accountApi.Login();
-
-        this.router = new Router;
-        this.router.init();
-        
-        window.addEventListener("miningLoaded", this.setupGame);
-    }
-
-    setupGame() {
-        this.game = new GameLogic();
-        this.game.mainLoop();
+        this.router = new Router();
+        this.gameLogic = new GameLogic();
+        this.gameState = new GameState();
+        this.displays = new Displays(this.gameLogic);
     }
 }
-
-const app = new App();

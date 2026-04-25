@@ -1,4 +1,4 @@
-﻿export class Router {
+﻿class Router {
     routes;
     notFound;
 
@@ -38,10 +38,10 @@
         const html = await response.text();
         const content = html || this.notFound;
         document.getElementById("app").innerHTML = content;
-        debugger
-        const routeParts = route.split("/");
-        const eventName = routeParts[routeParts.length - 1];
-        window.dispatchEvent(new CustomEvent(eventName));
+        if (path == "/Mining" || path == "/") {
+            window.dispatchEvent(new CustomEvent("miningLoaded"));
         }
     }
 }
+
+//export default Router;
