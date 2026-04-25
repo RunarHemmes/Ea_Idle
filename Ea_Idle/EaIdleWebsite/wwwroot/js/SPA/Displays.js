@@ -18,6 +18,7 @@ class Displays {
     MiningLoaded() {
         this.RemoveAllListeners();
         window.addEventListener("UpdateSpDisplay", this.UpdateSpDisplay.bind(this));
+        this.UpdateSpDisplay();
     }
 
     UpdateSpDisplay() {
