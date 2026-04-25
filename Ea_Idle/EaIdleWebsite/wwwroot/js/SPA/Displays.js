@@ -2,23 +2,27 @@
 
 class Displays {
     gamelogic
+    gameState
 
-    constructor(gameLogic) {
+    constructor(gameLogic, gameState) {
         this.gameLogic = gameLogic;
+        this.gameState = gameState;
 
-        window.addEventListener("MiningPageLoaded", this.MiningLoaded);
+        window.addEventListener("mining.html", this.MiningLoaded.bind(this));
     }
 
     RemoveAllListeners() {
-        window.removeEventListener("UpdateSpDisplay", this.gameLogic.UpdateSpDisplay);
+        window.removeEventListener("UpdateSpDisplay", this.UpdateSpDisplay.bind(this));
     }
 
     MiningLoaded() {
         this.RemoveAllListeners();
-        window.addEventListener("UpdateSpDisplay", this.gameLogic.UpdateSpDisplay);
+        window.addEventListener("UpdateSpDisplay", this.UpdateSpDisplay.bind(this));
     }
 
-
+    UpdateSpDisplay() {
+        document.getElementById("sp_Display").innerText = this.gameState.sp;
+    }
 }
 
 export default Displays;

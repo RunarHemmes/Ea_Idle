@@ -11,10 +11,12 @@ class App {
 
     constructor() {
         this.router = new Router();
-        this.router.init();
-        this.gameLogic = new GameLogic();
         this.gameState = new GameState();
-        this.displays = new Displays(this.gameLogic);
+        this.gameLogic = new GameLogic(this.gameState);
+        this.displays = new Displays(this.gameLogic, this.gameState);
+
+        this.router.init();
+        this.gameLogic.StartGame();
     }
 }
 
