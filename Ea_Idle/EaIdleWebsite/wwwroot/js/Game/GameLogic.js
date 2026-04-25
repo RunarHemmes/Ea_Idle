@@ -1,8 +1,10 @@
 ﻿class GameLogic {
     gameState
     tickInterval
-    constructor(gameState) {
+    progressAPI
+    constructor(gameState, progressAPI) {
         this.gameState = gameState;
+        this.progressAPI = progressAPI;
         
     }
 
@@ -15,15 +17,18 @@
     }
 
     MainGameLoop() {
-        const now = Date.now();
-        const n = now - this.gameState.lastSpTime;
-        if (n >= this.gameState.spCooldown) {
-            this.GainSp();
-        }
-
         if (Date.now() - this.gameState.lastSpTime >= this.gameState.spCooldown) {
             this.GainSp();
         }
+        if (Date.now() - this.gameState.lastSaveTime >= this.gameState.saveCooldown) {
+            this.SaveGame();
+        }
+    }
+
+    async SaveGame() {
+        this.gameState.lastSaveTime = Date.now();
+        await this.progressAPI.saveProgress(this.gameState.ExportProgress());
+        window.alert("Your game has been saved.");
     }
 
     GainSp() {

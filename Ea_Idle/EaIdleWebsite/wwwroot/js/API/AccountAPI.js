@@ -22,7 +22,6 @@
             })
             .catch(error => console.error(error));
         console.log(response);
-        window.dispatchEvent(new CustomEvent("tokenReceived"));
     }
 }
 

@@ -26,6 +26,7 @@ class ProgressAPI {
             return null;
         }
         const data = await response.json();
+
         const spAmount = parseInt(data.silverPennies);
         const progress = new Progress(spAmount);
         return progress;
