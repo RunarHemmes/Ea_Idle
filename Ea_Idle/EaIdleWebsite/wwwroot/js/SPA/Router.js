@@ -16,21 +16,21 @@
         this.notFound = "<h1>404</h1><p>Not found.</p>";
     }
 
-    init() {
-        window.addEventListener("popstate", () => this.toRoute());
-        this.toRoute()
+    Init() {
+        window.addEventListener("popstate", () => this.ToRoute());
+        this.ToRoute()
 
         window.navigateTo = (path) => {
-            this.navTo(path);
+            this.NavTo(path);
         };
     }
 
-    navTo(path) {
+    NavTo(path) {
         window.history.pushState({}, "", path);
-        this.toRoute();
+        this.ToRoute();
     }
 
-    async toRoute() {
+    async ToRoute() {
         const path = window.location.pathname;
         const route = this.routes[path];
         const response = await fetch(route);
