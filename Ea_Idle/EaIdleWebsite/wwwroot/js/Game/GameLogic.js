@@ -5,7 +5,6 @@
     constructor(gameState, progressAPI) {
         this.gameState = gameState;
         this.progressAPI = progressAPI;
-        
     }
 
     StartGame() {

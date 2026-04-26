@@ -1,11 +1,9 @@
 ﻿import GameLogic from "../Game/GameLogic.js";
 
 class Displays {
-    gamelogic
     gameState
 
-    constructor(gameLogic, gameState) {
-        this.gameLogic = gameLogic;
+    constructor(gameState) {
         this.gameState = gameState;
 
         window.addEventListener("mining.html", this.MiningLoaded.bind(this));

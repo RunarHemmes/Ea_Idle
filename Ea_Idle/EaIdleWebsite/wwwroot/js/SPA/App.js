@@ -13,14 +13,14 @@ class App {
     displays
     accountAPI
     progressAPI
-
+     
     constructor() {
         this.accountAPI = new AccountAPI();
         this.progressAPI = new ProgressAPI();
         this.router = new Router();
         this.gameState = new GameState();
         this.gameLogic = new GameLogic(this.gameState, this.progressAPI);
-        this.displays = new Displays(this.gameLogic, this.gameState);
+        this.displays = new Displays(this.gameState);
 
         this.router.init();
         this.LogIn();

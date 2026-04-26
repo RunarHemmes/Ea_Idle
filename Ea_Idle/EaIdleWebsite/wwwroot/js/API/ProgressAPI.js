@@ -53,7 +53,6 @@ class ProgressAPI {
         progress = new Progress(spAmount);
         progress;
         return progress;
-
     }
 
     async saveProgress(progress) {

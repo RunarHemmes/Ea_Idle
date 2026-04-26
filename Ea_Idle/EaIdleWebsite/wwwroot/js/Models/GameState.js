@@ -17,7 +17,6 @@ class GameState {
         this.saveCooldown = saveCooldown;
         this.lastSpTime = Date.now();
         this.lastSaveTime = Date.now();
-
     }
 
     ImportProgress(progress) {
