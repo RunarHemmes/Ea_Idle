@@ -1,26 +1,41 @@
-﻿import Router from './Router.js'
-import GameLogic from '../Game/Logic.js'
-import AccountAPI from '../API/AccountAPI.js'
+﻿import Router from './Router.js';
+import Displays from './Displays.js';
+import GameLogic from '../Game/GameLogic.js';
+import GameState from '../Models/GameState.js';
+import AccountAPI from '../API/AccountAPI.js';
+import ProgressAPI from '../API/ProgressAPI.js';
+import Progress from '../Models/Progress.js';
 
 class App {
-    #rootEl;
-    router;
-    game;
-    accountApi;
+    router
+    gameLogic
+    gameState
+    displays
+    accountAPI
+    progressAPI
+     
     constructor() {
-        this.#rootEl = document.getElementById('app');
-        this.accountApi = new AccountAPI();
-        this.accountApi.Login();
+        this.accountAPI = new AccountAPI();
+        this.progressAPI = new ProgressAPI();
+        this.router = new Router();
+        this.gameState = new GameState();
+        this.gameLogic = new GameLogic(this.gameState, this.progressAPI);
+        this.displays = new Displays(this.gameState);
 
-        this.router = new Router;
-        this.router.init();
-        
-        window.addEventListener("miningLoaded", this.setupGame);
+        this.router.Init();
+        this.LogIn();
     }
 
-    setupGame() {
-        this.game = new GameLogic();
-        this.game.mainLoop();
+    async LogIn() {
+        await this.accountAPI.Login();
+        await this.LoadProgress();
+    }
+
+    async LoadProgress() {
+        window.dispatchEvent(new CustomEvent("UpdateSpDisplay"));
+        const progress = await this.progressAPI.GetProgress();
+        this.gameState.ImportProgress(progress);
+        this.gameLogic.StartGame();
     }
 }
 
