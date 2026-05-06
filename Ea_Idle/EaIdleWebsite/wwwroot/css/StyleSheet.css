@@ -49,24 +49,30 @@ nav {
     width: 10vw;
 }
 
-#sp_Img {
+.Hidden {
+    display: none;
+    height: 0px;
+    width: 0px;
+}
+
+#Sp_Img {
     width: 10vw;
     height: 10vw;
     align-self: center;
     padding-right: 10px;
 }
 
-#sp_Display {
+#Sp_Display {
     font-size: 10vw;
     font-weight: 650;
 }
 
-#sp_Display:focus {
+#Sp_Display:focus {
     border-style: solid;
     border-color: #ffffff;
 }
 
-#sp_Div {
+#Sp_Div {
     display: flex;
     flex-direction: row;
     align-self: center;
@@ -74,7 +80,7 @@ nav {
     justify-content: center;
 }
 
-#top_bar {
+#Top_bar {
     display: flex;
     align-content: center;
     height: 15vw;
@@ -82,7 +88,7 @@ nav {
     flex-direction: row;
 }
 
-#app {
+#App {
     order: 1;
 }
 
@@ -124,31 +130,7 @@ CSS for desktop
         padding-top: 0.4vw;
     }
 
-    #sp_Img {
-        width: 7vw;
-        height: 7vw;
-        align-self: center;
-        padding-right: 10px;
-    }
-
-    #sp_Display {
-        margin: 0;
-        font-size: 7vw;
-        font-weight: 600;
-    }
-
-    #sp_Div {
-        width: 100vw;
-    }
-
-    #top_bar {
-        max-width: 100%;
-        right: 0;
-        left: auto;
-        height: 9vw;
-    }
-
-    #app {
+    .App {
         position: fixed;
         top: 0;
         right: 0;
@@ -160,4 +142,36 @@ CSS for desktop
         margin-left: 20vw;
         padding: 0;
     }
+
+    .Fullscreen {
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    #Sp_Img {
+        width: 7vw;
+        height: 7vw;
+        align-self: center;
+        padding-right: 10px;
+    }
+
+    #Sp_Display {
+        margin: 0;
+        font-size: 7vw;
+        font-weight: 600;
+    }
+
+    #Sp_Div {
+        width: 100vw;
+    }
+
+    #Top_bar {
+        max-width: 100%;
+        right: 0;
+        left: auto;
+        height: 9vw;
+    }
+
 }
