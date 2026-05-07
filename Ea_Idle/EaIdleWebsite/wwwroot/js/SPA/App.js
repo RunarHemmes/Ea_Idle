@@ -5,6 +5,7 @@ import GameState from '../Models/GameState.js';
 import AccountAPI from '../API/AccountAPI.js';
 import ProgressAPI from '../API/ProgressAPI.js';
 import Progress from '../Models/Progress.js';
+import Authenticator from '../SPA/Authentication.js'
 
 class App {
     router
@@ -13,17 +14,19 @@ class App {
     displays
     accountAPI
     progressAPI
+    authenticator
      
     constructor() {
         this.accountAPI = new AccountAPI();
         this.progressAPI = new ProgressAPI();
+        this.authenticator = new Authenticator(this.accountAPI);
         this.router = new Router();
         this.gameState = new GameState();
         this.gameLogic = new GameLogic(this.gameState, this.progressAPI);
         this.displays = new Displays(this.gameState);
 
         this.router.Init();
-        this.LogIn();
+        //this.LogIn();
     }
 
     async LogIn() {
