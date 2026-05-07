@@ -27,7 +27,7 @@
     async SaveGame() {
         this.gameState.lastSaveTime = Date.now();
         await this.progressAPI.saveProgress(this.gameState.ExportProgress());
-        window.alert("Your game has been saved.");
+        //window.alert("Your game has been saved.");
     }
 
     GainSp() {
