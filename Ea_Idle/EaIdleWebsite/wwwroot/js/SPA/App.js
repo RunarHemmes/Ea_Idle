@@ -5,8 +5,8 @@ import GameState from '../Models/GameState.js';
 import AccountAPI from '../API/AccountAPI.js';
 import ProgressAPI from '../API/ProgressAPI.js';
 import Progress from '../Models/Progress.js';
-import Authenticator from '../SPA/Authentication.js'
-
+import Authenticator from '../SPA/Authentication.js';
+import User from '../Models/User.js';
 class App {
     router
     gameLogic
@@ -15,9 +15,11 @@ class App {
     accountAPI
     progressAPI
     authenticator
+    user
      
     constructor() {
-        this.accountAPI = new AccountAPI();
+        this.user = new User(null);
+        this.accountAPI = new AccountAPI(this.user);
         this.progressAPI = new ProgressAPI();
         this.authenticator = new Authenticator(this.accountAPI);
         this.router = new Router();
@@ -27,12 +29,13 @@ class App {
 
         this.router.Init();
         //this.LogIn();
+        window.addEventListener("LoggedIn", this.LoadProgress.bind(this));
     }
 
-    async LogIn() {
-        await this.accountAPI.Login();
-        await this.LoadProgress();
-    }
+    //async LogIn() {
+    //    await this.accountAPI.Login();
+    //    await this.LoadProgress();
+    //}
 
     async LoadProgress() {
         window.dispatchEvent(new CustomEvent("UpdateSpDisplay"));

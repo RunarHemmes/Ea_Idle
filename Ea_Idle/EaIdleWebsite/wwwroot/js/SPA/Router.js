@@ -52,7 +52,6 @@
             filePath = this.routes["/Login"].filePath;
         } else {
             filePath = route.filePath;
-            debugger;
         }
 
         const response = await fetch(filePath);

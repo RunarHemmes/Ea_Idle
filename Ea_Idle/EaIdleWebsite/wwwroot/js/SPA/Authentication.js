@@ -16,18 +16,31 @@
         this.usernameField = document.getElementById("Username_Input");
         this.errorLbl = document.getElementById("Login_Error");
 
-        this.btn.addEventListener("click", this.Login.bind(this));
+        this.btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.Login();
+        })
     }
 
-    Login() {
-        let inputStatus = this.ValidateInput();
+    async Login() {
+        
+        const username = this.usernameField.value;
+        const password = this.passwordField.value;
+        let inputStatus = this.ValidateInput(username, password);
+
         if (inputStatus != "Ok") {
             this.errorLbl.innerText = inputStatus;
+            return;
         }
-        await this.accountAPI.Login();
+        let result = await this.accountAPI.Login(username, password);
     }
 
-    ValidateInput() {
-
+    ValidateInput(name, pass) {
+        if (name == "" || pass == "") {
+            return "Please fill in all fields";
+        }
+        return "Ok";
     }
 }
+
+export default Authenticator;

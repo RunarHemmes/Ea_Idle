@@ -1,6 +1,7 @@
 ﻿using Ea_API.Interfaces;
 using Ea_API.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -47,10 +48,12 @@ namespace Ea_API.Controllers
 
                         var t = new JwtSecurityTokenHandler().WriteToken(token);
 
-                        return Ok(new { user = userAccount, token = t });
+                        LoginModel user = new(userAccount.Username, null);
+
+                        return Ok(new { user = user, token = t });
                     }
                 }
-                return BadRequest("The username or password is incorrect.");
+                return BadRequest(new { errMsg = "The username or password is incorrect." });
             } catch
             {
                 return StatusCode(500, "Something went wrong internally.");
