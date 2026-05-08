@@ -20,17 +20,10 @@
         if (!response.ok) {
             return data.errMsg;
         }
-        debugger;
-        this.user = data.user;
+        this.user.name = data.user.username;
 
         sessionStorage.setItem("token", data.token);
-            //.then(response => response.json())s
-            //.then(data => {
-            //    console.log(data);
-            //    sessionStorage.setItem("token", data.token)
-            //})
-            //.catch(error => console.error(error));
-        debugger;
+        return null;
     }
 }
 

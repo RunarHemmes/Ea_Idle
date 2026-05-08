@@ -33,6 +33,9 @@
             return;
         }
         let result = await this.accountAPI.Login(username, password);
+        if (result != null) {
+            this.errorLbl.innerText = result;
+        }
     }
 
     ValidateInput(name, pass) {
