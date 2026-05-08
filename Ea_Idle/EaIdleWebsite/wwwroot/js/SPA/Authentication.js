@@ -36,13 +36,14 @@
         if (result != null) {
             this.errorLbl.innerText = result;
         }
+        window.dispatchEvent(new CustomEvent("LoggedIn"));
     }
 
     ValidateInput(name, pass) {
         if (name == "" || pass == "") {
             return "Please fill in all fields";
         }
-        return "Ok";
+        return "Ok"; 
     }
 }
 

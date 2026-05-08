@@ -20,6 +20,8 @@ class Displays {
 
     AddNavBar() {
         document.getElementById("Nav_Bar").hidden = false;
+        document.getElementById("Nav_Bar").classList.remove("Hidden");
+        document.getElementById("App").classList.remove("Fullscreen");
     }
 
     RemoveAllListeners() {
@@ -27,6 +29,7 @@ class Displays {
     }
 
     MiningLoaded() {
+        this.AddNavBar();
         this.RemoveAllListeners();
         window.addEventListener("UpdateSpDisplay", this.UpdateSpDisplay.bind(this));
         this.UpdateSpDisplay();

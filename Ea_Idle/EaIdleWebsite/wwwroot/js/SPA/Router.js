@@ -1,20 +1,11 @@
 ﻿class Router {
     routes;
     notFound;
+    user;
 
-    constructor() {
+    constructor(user) {
         // A list of URL routes, with the html filepaths, and whether the user has to be logged in to access the page.
-        //this.routes = {
-        //    "/": ['../../views/login.html', false],
-        //    "/Login": ['../../views/login.html', false],
-        //    "/Mining": ['../../views/mining.html', true],
-        //    "/Tharni": ['../../views/notImplemented.html', true],
-        //    "/Castar": ['../../views/notImplemented.html', true],
-        //    "/Silmaril": ['../../views/notImplemented.html', true],
-        //    "/Help": ['../../views/notImplemented.html', true],
-        //    "/Settings": ['../../views/notImplemented.html', true],
-        //    "/Credits": ['../../views/notImplemented.html', true],
-        //};
+        this.user = user;
         this.routes = {
             "/": { filePath: '../../views/login.html', requiresAuth: false },
             "/Login": { filePath: '../../views/login.html', requiresAuth: false },
@@ -48,7 +39,7 @@
         const route = this.routes[path];
         let filePath;
 
-        if (route.requiresAuth == true) {
+        if (route.requiresAuth == true && this.user.name == null) {
             filePath = this.routes["/Login"].filePath;
         } else {
             filePath = route.filePath;

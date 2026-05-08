@@ -22,7 +22,7 @@ class App {
         this.accountAPI = new AccountAPI(this.user);
         this.progressAPI = new ProgressAPI();
         this.authenticator = new Authenticator(this.accountAPI);
-        this.router = new Router();
+        this.router = new Router(this.user);
         this.gameState = new GameState();
         this.gameLogic = new GameLogic(this.gameState, this.progressAPI);
         this.displays = new Displays(this.gameState);
@@ -41,6 +41,7 @@ class App {
         window.dispatchEvent(new CustomEvent("UpdateSpDisplay"));
         const progress = await this.progressAPI.GetProgress();
         this.gameState.ImportProgress(progress);
+        this.router.NavTo("/Mining");
         this.gameLogic.StartGame();
     }
 }
