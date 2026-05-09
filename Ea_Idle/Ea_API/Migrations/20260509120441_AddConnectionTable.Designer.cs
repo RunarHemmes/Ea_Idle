@@ -2,6 +2,7 @@
 using Ea_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ea_API.Migrations
 {
     [DbContext(typeof(EaIdleDbContext))]
-    partial class EaIdleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260509120441_AddConnectionTable")]
+    partial class AddConnectionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.5");
@@ -59,19 +62,6 @@ namespace Ea_API.Migrations
                             Role = "Parent",
                             Username = "John"
                         });
-                });
-
-            modelBuilder.Entity("Ea_API.Models.Connection", b =>
-                {
-                    b.Property<int>("ParentId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ChildId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ParentId", "ChildId");
-
-                    b.ToTable("Connections");
                 });
 
             modelBuilder.Entity("Ea_API.Models.GameProgress", b =>

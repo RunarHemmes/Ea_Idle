@@ -2,6 +2,7 @@
 using Ea_API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -41,14 +42,14 @@ namespace Ea_API.Controllers
                         var token = new JwtSecurityToken(
                             issuer: _config["Jwt:Issuer"],
                             audience: _config["Jwt:Audience"],
-                            claims: new[] { new Claim(ClaimTypes.Name, loginModel.Username) },
+                            claims: new[] { new Claim(ClaimTypes.Name, userAccount.Username, userAccount.Role) },
                             expires: DateTime.Now.AddHours(1),
                             signingCredentials: credentials
                         );
 
                         var t = new JwtSecurityTokenHandler().WriteToken(token);
 
-                        LoginModel user = new(userAccount.Username, null, userAccount.Id);
+                        LoginModel user = new(userAccount.Username, userAccount.Role, null, userAccount.Id);
 
                         return Ok(new { user = user, token = t });
                     }
@@ -62,7 +63,7 @@ namespace Ea_API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<ActionResult<Account>> Register(string username, string email, string password)
+        public async Task<ActionResult<Account>> Register(string username, string role, string email, string password)
         {
             try
             {
@@ -75,7 +76,7 @@ namespace Ea_API.Controllers
                         {
                             highestId = 0;
                         }
-                        Account newAccount = new(highestId.Value + 1, username, password, email);
+                        Account newAccount = new(highestId.Value + 1, role, username, password, email);
                         newAccount = _repo.Add(newAccount);
                         return Ok(newAccount);
                     }

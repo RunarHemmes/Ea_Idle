@@ -9,12 +9,19 @@ namespace Ea_API.Data
         
         public DbSet<GameProgress> GameProgresses { get; set; }
 
+        public DbSet<Connection> Connections { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>().HasData(
-                new(1, "Harold", "passwordHarold", "Harold@mail.com"),
-                new(2, "John", "passwordJohn", "John@mail.com")
+                new(1, "Harold", "passwordHarold", "Harold@mail.com", "Player"),
+                new(2, "John", "passwordJohn", "John@mail.com", "Parent")
                 );
+
+            //Connection data = new(2, 1);
+            //modelBuilder.Entity<Connection>().HasData(
+            //    data 
+            //    );
         }
     }
 }

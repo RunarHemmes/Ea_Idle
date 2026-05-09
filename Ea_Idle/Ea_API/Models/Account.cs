@@ -13,12 +13,15 @@ namespace Ea_API.Models
 
         public string Email { get; set; }
 
-        public Account(int id, string username, string password, string email)
+        public string Role { get; set; }
+
+        public Account(int id, string username, string password, string email, string role)
         {
             Id = id;
             Username = username;
             Password = password;
             Email = email;
+            Role = role;
         }
     }
 }
