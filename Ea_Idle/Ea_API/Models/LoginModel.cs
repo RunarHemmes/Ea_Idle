@@ -9,10 +9,13 @@ namespace Ea_API.Models
 
         public string? Password { get; set; }
 
-        public LoginModel(string username, string? password)
+        public int Id { get; set; }
+
+        public LoginModel(string username, string? password, int id)
         {
             Username = username;
             Password = password;
+            Id = id;
         }
     }
 }

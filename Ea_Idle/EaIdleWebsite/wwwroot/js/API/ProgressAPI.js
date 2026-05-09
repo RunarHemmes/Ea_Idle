@@ -1,14 +1,16 @@
 ﻿import Progress from '../Models/Progress.js'
 
 class ProgressAPI {
-    constructor() {
+    user;
 
+    constructor(user) {
+        this.user = user;
     }
 
     async GetProgress() {
         const token = sessionStorage.token;
         
-        const response = await fetch("https://localhost:3000/api/GameProgress/Get1", {
+        const response = await fetch(`https://localhost:3000/api/GameProgress/Get${this.user.id}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -35,7 +37,7 @@ class ProgressAPI {
     async NewProgress() {
         const token = sessionStorage.token;
 
-        const response = await fetch("https://localhost:3000/api/GameProgress/NewSave1", {
+        const response = await fetch(`https://localhost:3000/api/GameProgress/NewSave${this.user.id}`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -50,7 +52,7 @@ class ProgressAPI {
         }
         const data = await response.json();
         const spAmount = parseInt(data.SilverPennies);
-        progress = new Progress(spAmount);
+        const progress = new Progress(spAmount);
         progress;
         return progress;
     }
@@ -58,7 +60,7 @@ class ProgressAPI {
     async saveProgress(progress) {
         const token = sessionStorage.token;
 
-        const response = await fetch("https://localhost:3000/api/GameProgress/Update1", {
+        const response = await fetch(`https://localhost:3000/api/GameProgress/Update${this.user.id}`, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -66,7 +68,7 @@ class ProgressAPI {
             },
             body: JSON.stringify({
                 Id: 1,
-                AccountId: 1,
+                AccountId: this.user.id,
                 SilverPennies: `${progress.silverPennies}`
             })
         });

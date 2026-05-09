@@ -21,6 +21,7 @@
             return data.errMsg;
         }
         this.user.name = data.user.username;
+        this.user.id = data.user.id;
 
         sessionStorage.setItem("token", data.token);
         return null;

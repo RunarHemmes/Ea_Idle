@@ -48,7 +48,7 @@ namespace Ea_API.Controllers
 
                         var t = new JwtSecurityTokenHandler().WriteToken(token);
 
-                        LoginModel user = new(userAccount.Username, null);
+                        LoginModel user = new(userAccount.Username, null, userAccount.Id);
 
                         return Ok(new { user = user, token = t });
                     }

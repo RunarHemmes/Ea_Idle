@@ -18,9 +18,9 @@ class App {
     user
      
     constructor() {
-        this.user = new User(null);
+        this.user = new User(null, null);
         this.accountAPI = new AccountAPI(this.user);
-        this.progressAPI = new ProgressAPI();
+        this.progressAPI = new ProgressAPI(this.user);
         this.authenticator = new Authenticator(this.accountAPI);
         this.router = new Router(this.user);
         this.gameState = new GameState();
