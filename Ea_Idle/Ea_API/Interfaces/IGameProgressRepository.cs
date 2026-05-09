@@ -6,9 +6,9 @@ namespace Ea_API.Interfaces
     {
         public List<GameProgress> GetAll();
 
-        public int? GetHighestId();
+        //public int? GetHighestId();
 
-        public GameProgress? GetById(int id);
+        //public GameProgress? GetById(int id);
 
         public GameProgress? GetByAccountId(int accountId);
 

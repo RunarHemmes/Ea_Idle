@@ -67,7 +67,7 @@ class ProgressAPI {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                Id: 1,
+                //Id: 1,
                 AccountId: this.user.id,
                 SilverPennies: `${progress.silverPennies}`
             })
