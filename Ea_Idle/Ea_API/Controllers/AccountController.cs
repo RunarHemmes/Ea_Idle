@@ -15,12 +15,14 @@ namespace Ea_API.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountRepository _repo;
+        private readonly IAccountRepository _accountRepo;
+        private readonly IConnectionRepository _connectRepo;
         private readonly IConfiguration _config;
 
-        public AccountController(IAccountRepository repo, IConfiguration config)
+        public AccountController(IAccountRepository account, IConnectionRepository connect, IConfiguration config)
         {
-            _repo = repo;
+            _accountRepo = account;
+            _connectRepo = connect;
             _config = config;
         }
 
@@ -30,7 +32,7 @@ namespace Ea_API.Controllers
         {
             try
             {
-                Account? userAccount = _repo.GetByUsername(loginModel.Username);
+                Account? userAccount = _accountRepo.GetByUsername(loginModel.Username);
 
                 if (userAccount != null)
                 {
@@ -67,17 +69,17 @@ namespace Ea_API.Controllers
         {
             try
             {
-                if (_repo.GetByUsername(username) == null)
+                if (_accountRepo.GetByUsername(username) == null)
                 {
-                    if (_repo.GetByEmail(email) == null)
+                    if (_accountRepo.GetByEmail(email) == null)
                     {
-                        int? highestId = _repo.GetHighestId();
+                        int? highestId = _accountRepo.GetHighestId();
                         if (!highestId.HasValue)
                         {
                             highestId = 0;
                         }
                         Account newAccount = new(highestId.Value + 1, role, username, password, email);
-                        newAccount = _repo.Add(newAccount);
+                        newAccount = _accountRepo.Add(newAccount);
                         return Ok(newAccount);
                     }
                     else
@@ -92,6 +94,34 @@ namespace Ea_API.Controllers
             } catch
             {
                 return StatusCode(500, "Something went wrong internally.");
+            }
+        }
+
+        [HttpPatch("SetTimeLimit{childId}")]
+        public async Task<ActionResult> SetTimeLimit([FromBody] string timeLimit, int childId)
+        {
+            try
+            {
+                Connection? connection = _connectRepo.GetByChild(childId);
+                if (connection != null)
+                {
+                    string[] times = timeLimit.Split(':');
+                    int hour = int.Parse(times[0]);
+                    int min = int.Parse(times[1]);
+                    int sec = int.Parse(times[2]);
+                    connection.TimeLimit = new(hour, min, sec);
+                    Connection? newConnection = _connectRepo.Update(connection);
+                    if (newConnection != null)
+                    {
+                        return Ok(newConnection);
+                    }
+                }
+                return BadRequest(new { errMsg = "This child doesn't have a connection yet."})
+                
+
+            } catch
+            {
+                return StatusCode(500, new { errMsg = "Something went wrong internally." });
             }
         }
     }

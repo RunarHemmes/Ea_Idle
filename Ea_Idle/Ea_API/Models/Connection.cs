@@ -1,15 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Ea_API.Models
 {
-    [PrimaryKey(nameof(ParentId), nameof(ChildId))]
+    //[PrimaryKey(nameof(ParentId), nameof(ChildId))]
     public class Connection
     {
+        [Key]
+        public int Id { get; set; }
+
+        [AllowNull]
         [ForeignKey(nameof(Account.Id))]
         public int ParentId { get; set; }
 
+        [AllowNull]
         [ForeignKey(nameof(Account.Id))]
         public int ChildId { get; set; }
 
@@ -17,6 +23,7 @@ namespace Ea_API.Models
 
         public Connection()
         {
+            TimeLimit = new TimeOnly(24, 00); 
             //ParentId = parent;
             //ChildId = child;
         }
