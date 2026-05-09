@@ -5,7 +5,8 @@ import GameState from '../Models/GameState.js';
 import AccountAPI from '../API/AccountAPI.js';
 import ProgressAPI from '../API/ProgressAPI.js';
 import Progress from '../Models/Progress.js';
-
+import Authenticator from '../SPA/Authentication.js';
+import User from '../Models/User.js';
 class App {
     router
     gameLogic
@@ -13,28 +14,34 @@ class App {
     displays
     accountAPI
     progressAPI
+    authenticator
+    user
      
     constructor() {
-        this.accountAPI = new AccountAPI();
-        this.progressAPI = new ProgressAPI();
-        this.router = new Router();
+        this.user = new User(null, null);
+        this.accountAPI = new AccountAPI(this.user);
+        this.progressAPI = new ProgressAPI(this.user);
+        this.authenticator = new Authenticator(this.accountAPI);
+        this.router = new Router(this.user);
         this.gameState = new GameState();
         this.gameLogic = new GameLogic(this.gameState, this.progressAPI);
         this.displays = new Displays(this.gameState);
 
         this.router.Init();
-        this.LogIn();
+        //this.LogIn();
+        window.addEventListener("LoggedIn", this.LoadProgress.bind(this));
     }
 
-    async LogIn() {
-        await this.accountAPI.Login();
-        await this.LoadProgress();
-    }
+    //async LogIn() {
+    //    await this.accountAPI.Login();
+    //    await this.LoadProgress();
+    //}
 
     async LoadProgress() {
         window.dispatchEvent(new CustomEvent("UpdateSpDisplay"));
         const progress = await this.progressAPI.GetProgress();
         this.gameState.ImportProgress(progress);
+        this.router.NavTo("/Mining");
         this.gameLogic.StartGame();
     }
 }

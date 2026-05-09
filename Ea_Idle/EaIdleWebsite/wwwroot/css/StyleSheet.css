@@ -23,6 +23,12 @@ nav {
     height: 13.5vw;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .Nav_Btn {
     flex-grow: 1;
     display: flex;
@@ -49,24 +55,69 @@ nav {
     width: 10vw;
 }
 
-#sp_Img {
+.Form_Alert {
+    color: #ff0000;
+}
+
+.Form_Btn {
+    background-color: #8A7C75;
+    border-color: #665C56;
+    min-width: 70px;
+    min-height: 40px;
+    max-width: 400px;
+    max-height: 100px;
+    width: 50vw;
+    height: 10vw;
+    border-style: solid;
+    border-width: 4px;
+    font-size: 4vh;
+}
+
+.Form_Input {
+    height: 5vh;
+    min-width: 150px;
+    max-width: 500px;
+    width: 50vw;
+}
+
+.Form_Group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Form_Lbl {
+    font-size: 3.5vh;
+}
+
+.Hidden {
+    display: none;
+    height: 0px;
+    width: 0px;
+}
+
+#Login_Head1 {
+    font-size: 5.5vh;
+}
+
+#Sp_Img {
     width: 10vw;
     height: 10vw;
     align-self: center;
     padding-right: 10px;
 }
 
-#sp_Display {
+#Sp_Display {
     font-size: 10vw;
     font-weight: 650;
 }
 
-#sp_Display:focus {
+#Sp_Display:focus {
     border-style: solid;
     border-color: #ffffff;
 }
 
-#sp_Div {
+#Sp_Div {
     display: flex;
     flex-direction: row;
     align-self: center;
@@ -74,7 +125,7 @@ nav {
     justify-content: center;
 }
 
-#top_bar {
+#Top_Bar {
     display: flex;
     align-content: center;
     height: 15vw;
@@ -82,8 +133,14 @@ nav {
     flex-direction: row;
 }
 
-#app {
+#App {
     order: 1;
+}
+
+#Login_Main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* ================
@@ -124,31 +181,7 @@ CSS for desktop
         padding-top: 0.4vw;
     }
 
-    #sp_Img {
-        width: 7vw;
-        height: 7vw;
-        align-self: center;
-        padding-right: 10px;
-    }
-
-    #sp_Display {
-        margin: 0;
-        font-size: 7vw;
-        font-weight: 600;
-    }
-
-    #sp_Div {
-        width: 100vw;
-    }
-
-    #top_bar {
-        max-width: 100%;
-        right: 0;
-        left: auto;
-        height: 9vw;
-    }
-
-    #app {
+    .App {
         position: fixed;
         top: 0;
         right: 0;
@@ -160,4 +193,38 @@ CSS for desktop
         margin-left: 20vw;
         padding: 0;
     }
+
+    .Fullscreen {
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    #Sp_Img {
+        width: 7vw;
+        height: 7vw;
+        align-self: center;
+        padding-right: 10px;
+    }
+
+    #Sp_Display {
+        margin: 0;
+        font-size: 7vw;
+        font-weight: 600;
+    }
+
+    #Sp_Div {
+        width: 100vw;
+    }
+
+    #Top_Bar {
+        max-width: 100%;
+        right: 0;
+        left: auto;
+        height: 9vw;
+    }
+
 }

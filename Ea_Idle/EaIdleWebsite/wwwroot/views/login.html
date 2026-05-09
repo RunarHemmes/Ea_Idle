@@ -1,0 +1,21 @@
+﻿<main id="Login_Main">  
+    <h1 id="Login_Head1">Login</h1>
+
+    <form id="Login_Form">
+        <div class="Form_Group">
+            <p class="Form_Lbl" for="Username_Input">Username</p>
+            <input class="Form_Input" id="Username_Input" type="text" inputmode="text" maxlength="50" aria-describedby="Username_Help" />
+            <span id="Username_Help" class="Hidden">Please fill in your username.</span>
+        </div>
+
+        <div class="Form_Group">
+            <p class="Form_Lbl" for="Password_Input">Password</p>
+            <input class="Form_Input" id="Password_Input" type="password" inputmode="text" aria-describedby="Password_Help" />
+            <span id="Password_Help" class="Hidden">Please fill in your Password.</span>
+        </div>
+         
+        <p class="Form_Alert" id="Login_Error"></p>
+
+        <button type="button" class="Form_Btn" id="Login_Btn">Log In</button>
+    </form>
+</main>
