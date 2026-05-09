@@ -14,7 +14,7 @@
             "/Castar": { filePath: '../../views/notImplemented.html', requiresAuth: true },
             "/Silmaril": { filePath: '../../views/notImplemented.html', requiresAuth: true },
             "/Help": { filePath: '../../views/notImplemented.html', requiresAuth: true },
-            "/Settings": { filePath: '../../views/notImplemented.html', requiresAuth: true },
+            "/Settings": { filePath: '../../views/settings.html', requiresAuth: true },
             "/Credits": { filePath: '../../views/notImplemented.html', requiresAuth: true },
         }
         this.notFound = "<h1>404</h1><p>Not found.</p>";

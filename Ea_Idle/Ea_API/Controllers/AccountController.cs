@@ -116,9 +116,7 @@ namespace Ea_API.Controllers
                         return Ok(newConnection);
                     }
                 }
-                return BadRequest(new { errMsg = "This child doesn't have a connection yet."})
-                
-
+                return BadRequest(new { errMsg = "This child doesn't have a connection yet." });
             } catch
             {
                 return StatusCode(500, new { errMsg = "Something went wrong internally." });

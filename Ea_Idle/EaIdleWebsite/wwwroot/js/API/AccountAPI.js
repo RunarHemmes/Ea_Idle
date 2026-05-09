@@ -12,6 +12,7 @@
             },
             body: JSON.stringify({
                 Username: username,
+                Role: "Player",
                 Password: password
             })
         });
