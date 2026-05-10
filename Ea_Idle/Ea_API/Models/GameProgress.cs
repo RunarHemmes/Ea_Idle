@@ -5,9 +5,6 @@ namespace Ea_API.Models
 {
     public class GameProgress
     {
-        //[Key]
-        //public int Id { get; set; }
-
         [Key]
         [ForeignKey(nameof(Account.Id))]
         public int AccountId { get; set; }
@@ -16,7 +13,6 @@ namespace Ea_API.Models
 
         public GameProgress(int accountId, string silverPennies)
         {
-            //Id = id;
             AccountId = accountId;
             SilverPennies = silverPennies;
         }

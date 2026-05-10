@@ -36,7 +36,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSPA",
-        policy => policy.WithOrigins("https://localhost:7020") // Replace with your SPA's URL
+        policy => policy.WithOrigins("https://localhost:7020")
                         .AllowAnyMethod()
                         .AllowAnyHeader());
 });

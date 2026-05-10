@@ -114,10 +114,6 @@ namespace Ea_API.Controllers
                 Connection? connection = _connectRepo.GetByParent(parentId);
                 if (connection != null)
                 {
-                    //string[] times = timeLimit.Split(':');
-                    //int hour = int.Parse(times[0]);
-                    //int min = int.Parse(times[1]);
-                    //int sec = int.Parse(times[2]);
                     connection.TimeLimit = new(hour, min, sec);
                     Connection? newConnection = _connectRepo.Update(connection);
                     if (newConnection != null)

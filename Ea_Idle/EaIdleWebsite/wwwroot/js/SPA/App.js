@@ -32,14 +32,8 @@ class App {
         this.displays = new Displays(this.gameState, this.user);
 
         this.router.Init();
-        //this.LogIn();
         window.addEventListener("LoggedIn", this.LoadProgress.bind(this));
     }
-
-    //async LogIn() {
-    //    await this.accountAPI.Login();
-    //    await this.LoadProgress();
-    //}
 
     async LoadProgress() {
         await this.accountAPI.GetConnection();

@@ -19,10 +19,6 @@
         this.SetCurrentLimit();
     }
 
-    //SetCurrentLimit() {
-    //    //document.getElementById("Hour_s")
-    //}
-
     async setTimeLimit() {
         const hour = document.getElementById("Hour_Select").value;
         const min = document.getElementById("Min_Select").value;

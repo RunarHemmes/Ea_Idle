@@ -37,9 +37,6 @@
                  "Authorization": `Bearer ${token}`,
                  "Content-Type": "application/json"
              },
-             //body: JSON.stringify({
-             //    timeLimit: `${hour}:${min}:${sec}`
-             //})
          });
          const data = await response.json();
          console.log(data);

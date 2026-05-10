@@ -17,11 +17,6 @@ namespace Ea_API.Data
                 new(1, "Harold", "passwordHarold", "Harold@mail.com", "Player"),
                 new(2, "John", "passwordJohn", "John@mail.com", "Parent")
                 );
-
-            //Connection data = new(2, 1);
-            //modelBuilder.Entity<Connection>().HasData(
-            //    data 
-            //    );
         }
     }
 }

@@ -26,32 +26,6 @@ namespace Ea_API.Repositories
             }
         }
 
-        //public int? GetHighestId()
-        //{
-        //    try
-        //    {
-        //        int result = _context.GameProgresses.OrderBy(g => g.Id).First().Id;
-        //        return result;
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        //public GameProgress? GetById(int id)
-        //{
-        //    try
-        //    {
-        //        GameProgress result = _context.GameProgresses.Single(g => g.Id == id);
-        //        return result;
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
-
         public GameProgress? GetByAccountId(int accountId)
         {
             try

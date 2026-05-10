@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Ea_API.Models
 {
-    //[PrimaryKey(nameof(ParentId), nameof(ChildId))]
     public class Connection
     {
         [Key]
@@ -24,8 +23,6 @@ namespace Ea_API.Models
         public Connection()
         {
             TimeLimit = new TimeOnly(23, 00, 00); 
-            //ParentId = parent;
-            //ChildId = child;
         }
     }
 }

@@ -3,12 +3,10 @@
 class Displays {
     gameState
     user
-    //app
 
     constructor(gameState, user) {
         this.gameState = gameState;
         this.user = user;
-        //this.app = app;
 
         window.addEventListener("mining.html", this.MiningLoaded.bind(this));
         window.addEventListener("login.html", this.LoginLoaded.bind(this));
@@ -53,7 +51,6 @@ class Displays {
 
     LoginLoaded() {
         this.RemoveNavBar();
-        //document.getElementById("Login_Btn").addEventListener("click", app.Login.bind(app))
     }
 
     LoadGeneralSettings() {
