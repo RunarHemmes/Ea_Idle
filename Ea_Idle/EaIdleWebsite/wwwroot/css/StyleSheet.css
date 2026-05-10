@@ -6,6 +6,12 @@
     flex-direction: column;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 button {
     font-family: "Cinzel Decorative", serif;
 }
@@ -23,6 +29,31 @@ nav {
     height: 13.5vw;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.Line {
+    border-style: solid;
+    height: 0px;
+    border-width: 1px;
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.Settings_Page {
+    display: flex;
+    flex-direction: column;
+}
+
 .Nav_Btn {
     flex-grow: 1;
     display: flex;
@@ -30,7 +61,7 @@ nav {
     align-items: center;
     border-style: solid;
     border-color: #ffffff;
-    border-radius: 20px;
+    border-radius: 0px;
     justify-content: center;
     background-color: #111111;
 }
@@ -49,24 +80,101 @@ nav {
     width: 10vw;
 }
 
-#sp_Img {
+.Form_Alert {
+    color: #ff0000;
+}
+
+.Form_Btn {
+    background-color: #8A7C75;
+    border-color: #665C56;
+    min-width: 70px;
+    min-height: 40px;
+    max-width: 400px;
+    max-height: 100px;
+    width: 50vw;
+    height: 10vw;
+    border-style: solid;
+    border-width: 4px;
+    font-size: 4vh;
+    font-weight:550;
+}
+
+.Form_Input {
+    height: 5vh;
+    min-width: 150px;
+    max-width: 500px;
+    width: 50vw;
+}
+
+.Form_Group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Form_Lbl {
+    font-size: 3.5vh;
+}
+
+.Time_Group {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    align-items: center;
+    width: 100%;
+    justify-content: start;
+    margin-left: 50%;
+}
+
+.Time_Select {
+    width: 70px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.Settings_Sect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Sub_Nav_Btn {
+    width: 33%;
+    height: 5vh;
+}
+
+.Hidden {
+    display: none;
+    height: 0px;
+    width: 0px;
+}
+
+#Login_Head1 {
+    font-size: 5.5vh;
+}
+
+#Child_Head {
+    margin-top: 12px;
+}
+
+#Sp_Img {
     width: 10vw;
     height: 10vw;
     align-self: center;
     padding-right: 10px;
 }
 
-#sp_Display {
+#Sp_Display {
     font-size: 10vw;
     font-weight: 650;
 }
 
-#sp_Display:focus {
+#Sp_Display:focus {
     border-style: solid;
     border-color: #ffffff;
 }
 
-#sp_Div {
+#Sp_Div {
     display: flex;
     flex-direction: row;
     align-self: center;
@@ -74,7 +182,7 @@ nav {
     justify-content: center;
 }
 
-#top_bar {
+#Top_Bar {
     display: flex;
     align-content: center;
     height: 15vw;
@@ -82,8 +190,30 @@ nav {
     flex-direction: row;
 }
 
-#app {
+#Settings_Account {
+    width: 34%;
+}
+
+#Child_Lbl {
+/*    border-style: solid;*/
+    border-bottom: solid;
+    border-color: #C0C0C0;
+}
+
+#App {
     order: 1;
+}
+
+#Limit_Btn {
+    height: 50px;
+    margin-top: 5px;
+}
+
+#Sub_Nav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+/*    justify-items: center;*/
 }
 
 /* ================
@@ -124,40 +254,86 @@ CSS for desktop
         padding-top: 0.4vw;
     }
 
-    #sp_Img {
+    .App {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 85vw;
+        height: 100vw;
+        order: 2;
+        margin-left: 15vw;
+        padding: 0;
+    }
+
+    .Fullscreen {
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    #Sp_Img {
         width: 7vw;
         height: 7vw;
         align-self: center;
         padding-right: 10px;
     }
 
-    #sp_Display {
+    #Sp_Display {
         margin: 0;
         font-size: 7vw;
         font-weight: 600;
     }
 
-    #sp_Div {
+    #Sp_Div {
         width: 100vw;
     }
 
-    #top_bar {
+    #Top_Bar {
         max-width: 100%;
         right: 0;
         left: auto;
         height: 9vw;
     }
 
-    #app {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 80vw;
-        height: 100vw;
-        order: 2;
-        margin-left: 20vw;
-        padding: 0;
+    #Parent_Page {
+        flex-direction: row;
+        flex-wrap: wrap;
     }
+
+    #Child_Head {
+        margin-top: 0px;
+    }
+
+    #SLine1 {
+        order: 1;
+    }
+
+    #SLine2 {
+        order: 4;
+    }
+
+    #SLine3 {
+        order: 6;
+    }
+
+    #Child_Sect {
+        order: 2;
+        width: 50%;
+    }
+
+    #Limit_Sect {
+        order: 3;
+        width: 50%;
+    }
+
+    #WIP_Sect {
+        order: 5;
+        width: 100%;
+    }
+
 }
