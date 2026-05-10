@@ -29,7 +29,7 @@ class App {
         this.router = new Router(this.user);
         this.gameState = new GameState();
         this.gameLogic = new GameLogic(this.gameState, this.progressAPI);
-        this.displays = new Displays(this.gameState);
+        this.displays = new Displays(this.gameState, this.user);
 
         this.router.Init();
         //this.LogIn();

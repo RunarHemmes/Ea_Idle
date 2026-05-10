@@ -16,7 +16,12 @@
             document.getElementById("Child_Sect").classList.add("Hidden");
             document.getElementById("Limit_Sect").classList.add("Hidden");
         }
+        this.SetCurrentLimit();
     }
+
+    //SetCurrentLimit() {
+    //    //document.getElementById("Hour_s")
+    //}
 
     async setTimeLimit() {
         const hour = document.getElementById("Hour_Select").value;

@@ -2,10 +2,12 @@
 
 class Displays {
     gameState
+    user
     //app
 
-    constructor(gameState) {
+    constructor(gameState, user) {
         this.gameState = gameState;
+        this.user = user;
         //this.app = app;
 
         window.addEventListener("mining.html", this.MiningLoaded.bind(this));
@@ -77,13 +79,19 @@ class Displays {
     }
 
     SetTimeOptions() {
-        for (let i = 0; i <= 24; i++) {
+        for (let i = 0; i <= 23; i++) {
             document.querySelector("#Hour_Select").add(new Option(i, i), undefined);
         }
-        for (let i = 0; i <= 60; i++) {
+        for (let i = 0; i <= 59; i++) {
             document.querySelector("#Min_Select").add(new Option(i, i), undefined);
             document.querySelector('#Sec_Select').add(new Option(i, i), undefined);
         }
+        const times = this.user.connectedTimeLimit.split(":");
+
+        document.getElementById("Hour_Select").value = parseInt(times[0]);
+        document.getElementById("Min_Select").value = parseInt(times[1]);
+        document.getElementById("Sec_Select").value = parseInt(times[2]);
+        this.SetTimeLimitBtn();
     }
 
     SetTimeLimitBtn() {
