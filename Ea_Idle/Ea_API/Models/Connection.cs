@@ -23,7 +23,7 @@ namespace Ea_API.Models
 
         public Connection()
         {
-            TimeLimit = new TimeOnly(24, 00); 
+            TimeLimit = new TimeOnly(23, 00, 00); 
             //ParentId = parent;
             //ChildId = child;
         }

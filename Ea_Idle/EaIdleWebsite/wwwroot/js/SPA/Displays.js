@@ -43,10 +43,10 @@ class Displays {
 
     SettingsLoaded() {
         this.RemoveAllListeners();
+        this.LoadGeneralSettings();
         document.getElementById("Settings_General").addEventListener("click", this.LoadGeneralSettings.bind(this))
         document.getElementById("Settings_Account").addEventListener("click", this.LoadAccountSettings.bind(this))
         document.getElementById("Settings_Parental").addEventListener("click", this.LoadParentSettings.bind(this))
-        this.LoadGeneralSettings();
     }
 
     LoginLoaded() {
@@ -70,6 +70,28 @@ class Displays {
         this.HideSettingsPages();
         document.getElementById("Parent_Page").hidden = false;
         document.getElementById("Parent_Page").classList.remove("Hidden");
+        this.SetTimeOptions();
+        document.getElementById("Hour_Select").addEventListener("change", this.SetTimeLimitBtn.bind(this));
+        document.getElementById("Min_Select").addEventListener("change", this.SetTimeLimitBtn.bind(this));
+        document.getElementById("Sec_Select").addEventListener("change", this.SetTimeLimitBtn.bind(this));
+    }
+
+    SetTimeOptions() {
+        for (let i = 0; i <= 24; i++) {
+            document.querySelector("#Hour_Select").add(new Option(i, i), undefined);
+        }
+        for (let i = 0; i <= 60; i++) {
+            document.querySelector("#Min_Select").add(new Option(i, i), undefined);
+            document.querySelector('#Sec_Select').add(new Option(i, i), undefined);
+        }
+    }
+
+    SetTimeLimitBtn() {
+        const hour = document.getElementById("Hour_Select").value;
+        const min = document.getElementById("Min_Select").value;
+        const sec = document.getElementById("Sec_Select").value;
+        const text = `${hour}:${min}:${sec}`;
+        document.getElementById("Time_Span").innerText = text;
     }
 
     HideSettingsPages() {

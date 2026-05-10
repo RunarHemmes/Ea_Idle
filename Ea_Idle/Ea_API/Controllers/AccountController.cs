@@ -97,18 +97,27 @@ namespace Ea_API.Controllers
             }
         }
 
-        [HttpPatch("SetTimeLimit{childId}")]
-        public async Task<ActionResult> SetTimeLimit([FromBody] string timeLimit, int childId)
+        [HttpPatch("SetTimeLimit{parentId}-{hour}:{min}:{sec}")]
+        public async Task<ActionResult> SetTimeLimit(int parentId, int hour, int min, int sec)
         {
             try
             {
-                Connection? connection = _connectRepo.GetByChild(childId);
+                Account? account = _accountRepo.Get(parentId);
+                if (account == null)
+                {
+                    return BadRequest(new { errMsg = "This Id doesn't belong to an account." });
+                } else if (account.Role != "Parent")
+                {
+                    return BadRequest(new { errMsg = "This is not a parent account." });
+                }
+
+                Connection? connection = _connectRepo.GetByParent(parentId);
                 if (connection != null)
                 {
-                    string[] times = timeLimit.Split(':');
-                    int hour = int.Parse(times[0]);
-                    int min = int.Parse(times[1]);
-                    int sec = int.Parse(times[2]);
+                    //string[] times = timeLimit.Split(':');
+                    //int hour = int.Parse(times[0]);
+                    //int min = int.Parse(times[1]);
+                    //int sec = int.Parse(times[2]);
                     connection.TimeLimit = new(hour, min, sec);
                     Connection? newConnection = _connectRepo.Update(connection);
                     if (newConnection != null)
@@ -116,7 +125,49 @@ namespace Ea_API.Controllers
                         return Ok(newConnection);
                     }
                 }
-                return BadRequest(new { errMsg = "This child doesn't have a connection yet." });
+                return BadRequest(new { errMsg = "This parent account doesn't have a connection yet." });
+            } catch
+            {
+                return StatusCode(500, new { errMsg = "Something went wrong internally." });
+            }
+        }
+
+        [HttpGet("GetConnect{accountId}")]
+        public async Task<ActionResult<Connection>> GetConnect(int accountId)
+        {
+            try
+            {
+                Account? account = _accountRepo.Get(accountId);
+                if (account == null)
+                {
+                    return BadRequest(new { errMsg = "This Id doesn't belong to an account."});
+                }
+                Connection? connection;
+                if (account.Role == "Parent")
+                {
+                    connection = _connectRepo.GetByParent(accountId);
+                }
+                else
+                {
+                    connection = _connectRepo.GetByChild(accountId);
+                }
+                if (connection != null)
+                {
+                    Account? parent = _accountRepo.Get(connection.ParentId);
+                    Account? child = _accountRepo.Get(connection.ChildId);
+                    if (parent != null && child != null)
+                    {
+                        return Ok(new
+                        {
+                            parentId = connection.ParentId,
+                            parentName = parent.Username,
+                            childId = connection.ChildId,
+                            childName = child.Username,
+                            timeLimit = connection.TimeLimit
+                        });
+                    }
+                }
+                return BadRequest(new { errMsg = "This parent account doesn't have a connection yet." });
             } catch
             {
                 return StatusCode(500, new { errMsg = "Something went wrong internally." });
