@@ -63,11 +63,6 @@ namespace Ea_API.Controllers
                 {
                     return BadRequest("This account already has a save.");
                 }
-                //int? highestId = _repo.GetHighestId();
-                //if (highestId == null)
-                //{
-                //    highestId = 0;
-                //}
                 GameProgress newProgress = new GameProgress(accountId, "0");
                 newProgress = _repo.Add(newProgress);
                 return Ok(newProgress);

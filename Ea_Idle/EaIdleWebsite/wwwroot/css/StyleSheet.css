@@ -6,6 +6,12 @@
     flex-direction: column;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 button {
     font-family: "Cinzel Decorative", serif;
 }
@@ -29,6 +35,25 @@ form {
     align-items: center;
 }
 
+h2 {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.Line {
+    border-style: solid;
+    height: 0px;
+    border-width: 1px;
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.Settings_Page {
+    display: flex;
+    flex-direction: column;
+}
+
 .Nav_Btn {
     flex-grow: 1;
     display: flex;
@@ -36,7 +61,7 @@ form {
     align-items: center;
     border-style: solid;
     border-color: #ffffff;
-    border-radius: 20px;
+    border-radius: 0px;
     justify-content: center;
     background-color: #111111;
 }
@@ -71,6 +96,7 @@ form {
     border-style: solid;
     border-width: 4px;
     font-size: 4vh;
+    font-weight:550;
 }
 
 .Form_Input {
@@ -90,6 +116,33 @@ form {
     font-size: 3.5vh;
 }
 
+.Time_Group {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    align-items: center;
+    width: 100%;
+    justify-content: start;
+    margin-left: 50%;
+}
+
+.Time_Select {
+    width: 70px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.Settings_Sect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Sub_Nav_Btn {
+    width: 33%;
+    height: 5vh;
+}
+
 .Hidden {
     display: none;
     height: 0px;
@@ -98,6 +151,10 @@ form {
 
 #Login_Head1 {
     font-size: 5.5vh;
+}
+
+#Child_Head {
+    margin-top: 12px;
 }
 
 #Sp_Img {
@@ -133,14 +190,30 @@ form {
     flex-direction: row;
 }
 
+#Settings_Account {
+    width: 34%;
+}
+
+#Child_Lbl {
+/*    border-style: solid;*/
+    border-bottom: solid;
+    border-color: #C0C0C0;
+}
+
 #App {
     order: 1;
 }
 
-#Login_Main {
+#Limit_Btn {
+    height: 50px;
+    margin-top: 5px;
+}
+
+#Sub_Nav {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    width: 100%;
+/*    justify-items: center;*/
 }
 
 /* ================
@@ -187,10 +260,10 @@ CSS for desktop
         right: 0;
         bottom: 0;
         left: 0;
-        width: 80vw;
+        width: 85vw;
         height: 100vw;
         order: 2;
-        margin-left: 20vw;
+        margin-left: 15vw;
         padding: 0;
     }
 
@@ -225,6 +298,42 @@ CSS for desktop
         right: 0;
         left: auto;
         height: 9vw;
+    }
+
+    #Parent_Page {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    #Child_Head {
+        margin-top: 0px;
+    }
+
+    #SLine1 {
+        order: 1;
+    }
+
+    #SLine2 {
+        order: 4;
+    }
+
+    #SLine3 {
+        order: 6;
+    }
+
+    #Child_Sect {
+        order: 2;
+        width: 50%;
+    }
+
+    #Limit_Sect {
+        order: 3;
+        width: 50%;
+    }
+
+    #WIP_Sect {
+        order: 5;
+        width: 100%;
     }
 
 }

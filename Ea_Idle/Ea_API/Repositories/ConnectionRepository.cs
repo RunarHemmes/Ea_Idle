@@ -1,37 +1,24 @@
-﻿using Ea_API.Models;
+﻿using Ea_API.Data;
 using Ea_API.Interfaces;
-using Ea_API.Data;
+using Ea_API.Models;
 
 namespace Ea_API.Repositories
 {
-    public class GameProgressRepository : IGameProgressRepository
+    public class ConnectionRepository : IConnectionRepository
     {
         private readonly EaIdleDbContext _context;
 
-        public GameProgressRepository(EaIdleDbContext context)
+        public ConnectionRepository(EaIdleDbContext context)
         {
             _context = context;
         }
 
-        public List<GameProgress> GetAll()
+        public Connection? GetByParent(int parentId)
         {
             try
             {
-                List<GameProgress> result = _context.GameProgresses.ToList();
-                return result;
-            }
-            catch
-            {
-                throw new Exception("GetAll exception");
-            }
-        }
-
-        public GameProgress? GetByAccountId(int accountId)
-        {
-            try
-            {
-                GameProgress result = _context.GameProgresses.Single(g => g.AccountId == accountId);
-                return result;
+                Connection connect = _context.Connections.Single(c => c.ParentId == parentId);
+                return connect;
             }
             catch
             {
@@ -39,13 +26,26 @@ namespace Ea_API.Repositories
             }
         }
 
-        public GameProgress Add(GameProgress progress)
+        public Connection? GetByChild(int childId)
         {
             try
             {
-                _context.Add(progress);
+                Connection connect = _context.Connections.Single(c => c.ChildId == childId);
+                return connect;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public Connection Add(Connection connection)
+        {
+            try
+            {
+                _context.Add(connection);
                 _context.SaveChanges();
-                return progress;
+                return connection;
             }
             catch
             {
@@ -53,13 +53,13 @@ namespace Ea_API.Repositories
             }
         }
 
-        public GameProgress? Update(GameProgress progress)
+        public Connection? Update(Connection connection)
         {
             try
             {
-                _context.Update(progress);
+                _context.Update(connection);
                 _context.SaveChanges();
-                return progress;
+                return connection;
             }
             catch
             {
@@ -67,19 +67,18 @@ namespace Ea_API.Repositories
             }
         }
 
-        public GameProgress? Delete(GameProgress progress)
+        public Connection? Delete(Connection connection)
         {
             try
             {
-                _context.Remove(progress);
+                _context.Remove(connection);
                 _context.SaveChanges();
-                return progress;
+                return connection;
             }
             catch
             {
                 return null;
             }
         }
-
     }
 }

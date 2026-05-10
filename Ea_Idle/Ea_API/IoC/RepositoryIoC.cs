@@ -7,6 +7,7 @@ namespace Ea_API.IoC
     {
         public static void AddRepositories(this IServiceCollection services)
         {
+            services.AddScoped<IConnectionRepository, ConnectionRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IGameProgressRepository, GameProgressRepository>();
         }

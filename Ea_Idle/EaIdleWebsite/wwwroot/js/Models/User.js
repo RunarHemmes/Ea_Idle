@@ -1,6 +1,10 @@
 ﻿class User {
-    name;
-    id;
+    name
+    id
+    role
+    connectedName
+    connectedId
+    connectedTimeLimit
 
     constructor(username, id) {
         this.name = username;
