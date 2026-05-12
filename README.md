@@ -1,6 +1,9 @@
 # Ea_Idle
 This is the repository in wich Eä Idle will be developed.
 
+Ea Idle will be a webgame, themed around Lord Of The Rings. 
+Users will be able to log in to retrieve their progress, and gain points to buy upgrades, prestige, and start again.
+
 ---
 # Mitigated threat
 I implemented a security measure to mitigate threat number 21: Spoofing the SPA Process. I did this by implementing authentication via JSON Web Tokens (JWT). This can be seen in the following codefiles in the Ea_API project: program.cs, AccountController.cs, GameProgressController.cs.
