@@ -6,6 +6,10 @@
     flex-direction: column;
 }
 
+a {
+    color: #f3b224;
+}
+
 main {
     display: flex;
     flex-direction: column;
