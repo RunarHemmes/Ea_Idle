@@ -51,7 +51,7 @@ namespace Ea_API.Controllers
 
                         var t = new JwtSecurityTokenHandler().WriteToken(token);
 
-                        LoginModel user = new(userAccount.Username, userAccount.Role, null, userAccount.Id);
+                        LoginModel user = new(userAccount.Username, userAccount.Role, userAccount.Id);
 
                         return Ok(new { user = user, token = t });
                     }
@@ -65,35 +65,36 @@ namespace Ea_API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<ActionResult<Account>> Register(string username, string role, string email, string password)
+        public async Task<ActionResult<Account>> Register([FromBody] LoginModel registerModel)
         {
             try
             {
-                if (_accountRepo.GetByUsername(username) == null)
+                if (_accountRepo.GetByUsername(registerModel.Username) == null)
                 {
-                    if (_accountRepo.GetByEmail(email) == null)
+                    if (_accountRepo.GetByEmail(registerModel.Email) == null)
                     {
                         int? highestId = _accountRepo.GetHighestId();
                         if (!highestId.HasValue)
                         {
                             highestId = 0;
                         }
-                        Account newAccount = new(highestId.Value + 1, role, username, password, email);
+                        Account newAccount = new(highestId.Value + 1, registerModel.Username, registerModel.Password, registerModel.Email, registerModel.Role);
                         newAccount = _accountRepo.Add(newAccount);
-                        return Ok(newAccount);
+                        LoginModel registerReturn = new(newAccount.Username, newAccount.Role, newAccount.Id);
+                        return Ok(registerReturn);
                     }
                     else
                     {
-                        return BadRequest("This email is already linked to an account.");
+                        return BadRequest(new{ errMsg = "This email is already linked to an account."});
                     }
                 }
                 else
                 {
-                    return BadRequest("This username is already taken.");
+                    return BadRequest(new{ errMsg = "This username is already taken."});
                 }
             } catch
             {
-                return StatusCode(500, "Something went wrong internally.");
+                return StatusCode(500, new{ errMsg = "Something went wrong internally."});
             }
         }
 
@@ -169,5 +170,5 @@ namespace Ea_API.Controllers
                 return StatusCode(500, new { errMsg = "Something went wrong internally." });
             }
         }
-    }
+     }
 }

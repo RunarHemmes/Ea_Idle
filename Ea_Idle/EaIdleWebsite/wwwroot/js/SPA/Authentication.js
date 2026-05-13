@@ -39,6 +39,7 @@
         let result = await this.accountAPI.Login(username, password);
         if (result != null) {
             this.errorLbl.innerText = result;
+            return;
         }
         window.dispatchEvent(new CustomEvent("LoggedIn"));
     }
@@ -75,22 +76,28 @@
 
         if (inputStatus != "Ok") {
             this.errorLbl.innerText = inputStatus;
+            return;
         }
-        
+        let result = await this.accountAPI.Register(username, email, password, confirm, role);
+        if (result != null) {
+            this.errorLbl.innerText = result;
+            return;
+        }
+        window.dispatchEvent(new CustomEvent("Registered"));
     }
 
     ValidateRegisterInput(name, mail, pass, confirm) {
         if (name == "" || mail == "" || pass == "" || confirm == "") {
             return "Please fill in all fields";
         }
-        if (7 < pass.lenght < 16) {
-            return "Your password is the wrong length, it should be 8-5 characters";
+        if (8 > pass.lenght > 30) {
+            return "Your password is the wrong length, it should be 8-30 characters";
         }
         if (pass != confirm) {
             return "The passwords are not the same";
         }
         let mailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (mailCheck.test(mail)) {
+        if (!mailCheck.test(mail)) {
             return "This email is not valid, please check for mistakes";
         }
         return "Ok";
