@@ -6,6 +6,7 @@
     errorLbl
     emailField
     confirmField
+    roleSelect
 
     constructor(accountAPI) {
         this.accountAPI = accountAPI;
@@ -55,6 +56,7 @@
         this.emailField = document.getElementById("Email_Input");
         this.passwordField = document.getElementById("Password_Input");
         this.confirmField = document.getElementById("Confirm_Input");
+        this.roleSelect = document.getElementById("Role_Select");
         this.errorLbl = document.getElementById("Registration_Error");
 
         this.btn.addEventListener("click", (e) => {
@@ -68,6 +70,7 @@
         const email = this.emailField.value;
         const password = this.passwordField.value;
         const confirm = this.confirmField.value;
+        const role = this.roleSelect.value;
         const inputStatus = this.ValidateRegisterInput(username, email, password, confirm);
 
         if (inputStatus != "Ok") {

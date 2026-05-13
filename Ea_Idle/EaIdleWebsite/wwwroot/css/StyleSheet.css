@@ -14,6 +14,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
 }
 
 button {
@@ -94,7 +95,7 @@ h2 {
     min-width: 70px;
     min-height: 40px;
     max-width: 400px;
-    max-height: 100px;
+    max-height: 75px;
     width: 50vw;
     height: 10vw;
     border-style: solid;
@@ -114,10 +115,14 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 2px;
+    margin-bottom: 1px;
 }
 
 .Form_Lbl {
     font-size: 3.5vh;
+    margin-bottom: 5px;
+    margin-top: 15px;
 }
 
 .Time_Group {
