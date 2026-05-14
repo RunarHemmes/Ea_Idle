@@ -9,6 +9,7 @@
         this.routes = {
             "/": { filePath: '../../views/login.html', requiresAuth: false },
             "/Login": { filePath: '../../views/login.html', requiresAuth: false },
+            "/Registration": { filePath: '../../views/registration.html', requiresAuth: false},
             "/Mining": { filePath: '../../views/mining.html', requiresAuth: true },
             "/Tharni": { filePath: '../../views/notImplemented.html', requiresAuth: true },
             "/Castar": { filePath: '../../views/notImplemented.html', requiresAuth: true },

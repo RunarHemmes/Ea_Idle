@@ -29,6 +29,29 @@
         return null;
     }
 
+    async Register(username, email, password, passwordConfirm, role) {
+        const response = await fetch("https://localhost:3000/api/Account/Register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Username: username,
+                Role: role,
+                Password: password,
+                Email: email,
+                PassConfirm: passwordConfirm
+            })
+        });
+        const data = await response.json();
+        console.log(data);
+        if (!response.ok) {
+            return data.errMsg;
+        }
+
+        return null;
+    }
+
     async SetTimeLimit(hour, min, sec) {
          const token = sessionStorage.token;
         const response = await fetch(`https://localhost:3000/api/Account/SetTimeLimit${this.user.id}-${hour}:${min}:${sec}`, {
@@ -70,6 +93,6 @@
         this.user.connectedTimeLimit = data.timeLimit;
         return null;
     }
-}
+ }
 
 export default AccountAPI;
