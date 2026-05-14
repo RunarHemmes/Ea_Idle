@@ -10,6 +10,7 @@ class Displays {
 
         window.addEventListener("mining.html", this.MiningLoaded.bind(this));
         window.addEventListener("login.html", this.LoginLoaded.bind(this));
+        window.addEventListener("registration.html", this.RegistrationLoaded.bind(this))
         window.addEventListener("tharni.html", this.RemoveAllListeners.bind(this));
         window.addEventListener("castar.html", this.RemoveAllListeners.bind(this));
         window.addEventListener("silmaril.html", this.RemoveAllListeners.bind(this));
@@ -50,6 +51,10 @@ class Displays {
     }
 
     LoginLoaded() {
+        this.RemoveNavBar();
+    }
+
+    RegistrationLoaded() {
         this.RemoveNavBar();
     }
 

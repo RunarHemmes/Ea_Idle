@@ -29,7 +29,7 @@ namespace Ea_API.Repositories
         {
             try
             {
-                int result = _context.Accounts.OrderBy(a => a.Id).First().Id;
+                int result = _context.Accounts.OrderByDescending(a => a.Id).First().Id;
                 return result;
             } catch
             {
