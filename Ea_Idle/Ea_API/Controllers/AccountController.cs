@@ -3,6 +3,7 @@ using Ea_API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,51 +16,79 @@ namespace Ea_API.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountRepository _accountRepo;
+        private readonly IAccountRepository _repo;
         private readonly IConnectionRepository _connectRepo;
         private readonly IConfiguration _config;
+        private readonly IAccountService _accountService;
+        private readonly ISecurityService _securityService;
 
-        public AccountController(IAccountRepository account, IConnectionRepository connect, IConfiguration config)
+        public AccountController(IAccountService accountService, ISecurityService securityService, IAccountRepository account, IConnectionRepository connect, IConfiguration config)
         {
-            _accountRepo = account;
+            _accountService = accountService;
+            _securityService = securityService;
+            _repo = account;
             _connectRepo = connect;
             _config = config;
         }
 
+        //[AllowAnonymous]
+        //[HttpPost("Login")]
+        //public async Task<ActionResult<Account>> Login([FromBody] LoginModel loginModel)
+        //{
+        //    try
+        //    {
+        //        Account? userAccount = _repo.GetByUsername(loginModel.Username);
+
+        //        if (userAccount != null)
+        //        {
+        //            if (userAccount.Password == loginModel.Password)
+        //            {
+        //                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"])); //Warning can be ignored, this (should) always get a string, not null.
+        //                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+        //                var token = new JwtSecurityToken(
+        //                    issuer: _config["Jwt:Issuer"],
+        //                    audience: _config["Jwt:Audience"],
+        //                    claims: new[] { new Claim(ClaimTypes.Name, userAccount.Username, userAccount.Role) },
+        //                    expires: DateTime.Now.AddHours(1),
+        //                    signingCredentials: credentials
+        //                );
+
+        //                var t = new JwtSecurityTokenHandler().WriteToken(token);
+
+        //                LoginModel user = new(userAccount.Username, userAccount.Role, userAccount.Id);
+
+        //                return Ok(new { user = user, token = t });
+        //            }
+        //        }
+        //        return BadRequest(new { errMsg = "The username or password is incorrect." });
+        //    } catch
+        //    {
+        //        return StatusCode(500, "Something went wrong internally.");
+        //    }
+        //}
+
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<ActionResult<Account>> Login([FromBody] LoginModel loginModel)
+        public async Task<ActionResult<LoginModel>> Login([FromBody] LoginModel loginRequest)
         {
             try
             {
-                Account? userAccount = _accountRepo.GetByUsername(loginModel.Username);
-
-                if (userAccount != null)
+                (bool validateSucces, string? validateMsg) = _securityService.ValidateLoginValues(loginRequest);
+                if (!validateSucces)
                 {
-                    if (userAccount.Password == loginModel.Password)
-                    {
-                        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"])); //Warning can be ignored, this (should) always get a string, not null.
-                        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-                        var token = new JwtSecurityToken(
-                            issuer: _config["Jwt:Issuer"],
-                            audience: _config["Jwt:Audience"],
-                            claims: new[] { new Claim(ClaimTypes.Name, userAccount.Username, userAccount.Role) },
-                            expires: DateTime.Now.AddHours(1),
-                            signingCredentials: credentials
-                        );
-
-                        var t = new JwtSecurityTokenHandler().WriteToken(token);
-
-                        LoginModel user = new(userAccount.Username, userAccount.Role, userAccount.Id);
-
-                        return Ok(new { user = user, token = t });
-                    }
+                    return BadRequest(new { errMsg = validateMsg });
                 }
-                return BadRequest(new { errMsg = "The username or password is incorrect." });
+                (bool loginSucces, LoginModel? user, string? loginMsg) = _accountService.Login(loginRequest);
+                if (!loginSucces)
+                {
+                    return BadRequest(new { errMsg = loginMsg });
+                }
+                string token = _securityService.GenerateToken(user.Username, user.Role);
+                return Ok(new { user = user, token = token });
             } catch
             {
-                return StatusCode(500, "Something went wrong internally.");
+                return StatusCode(500, "Something went wrong with the API, please try again, or come back later.");
             }
         }
 
@@ -69,41 +98,30 @@ namespace Ea_API.Controllers
         {
             try
             {
-                if (_accountRepo.GetByUsername(registerModel.Username) == null)
+                (bool validateSucces, string? validateMsg) = _securityService.ValidateRegisterValues(registerModel);
+                if (!validateSucces)
                 {
-                    if (_accountRepo.GetByEmail(registerModel.Email) == null)
-                    {
-                        int? highestId = _accountRepo.GetHighestId();
-                        if (!highestId.HasValue)
-                        {
-                            highestId = 0;
-                        }
-                        Account newAccount = new(highestId.Value + 1, registerModel.Username, registerModel.Password, registerModel.Email, registerModel.Role);
-                        newAccount = _accountRepo.Add(newAccount);
-                        LoginModel registerReturn = new(newAccount.Username, newAccount.Role, newAccount.Id);
-                        return Ok(registerReturn);
-                    }
-                    else
-                    {
-                        return BadRequest(new{ errMsg = "This email is already linked to an account."});
-                    }
+                    return BadRequest(new { errMsg = validateMsg });
                 }
-                else
+                (bool regSucces, LoginModel? user, string? regMsg) = _accountService.Register(registerModel);
+                if (!regSucces)
                 {
-                    return BadRequest(new{ errMsg = "This username is already taken."});
+                    return BadRequest(new { errMsg = regMsg });
                 }
-            } catch
+                return Ok(user);
+            }
+            catch
             {
                 return StatusCode(500, new{ errMsg = "Something went wrong internally."});
             }
         }
 
         [HttpPatch("SetTimeLimit{parentId}-{hour}:{min}:{sec}")]
-        public async Task<ActionResult> SetTimeLimit(int parentId, int hour, int min, int sec)
+        public async Task<ActionResult<Connection>> SetTimeLimit(int parentId, int hour, int min, int sec)
         {
             try
             {
-                Account? account = _accountRepo.Get(parentId);
+                Account? account = _repo.Get(parentId);
                 if (account == null)
                 {
                     return BadRequest(new { errMsg = "This Id doesn't belong to an account." });
@@ -134,7 +152,7 @@ namespace Ea_API.Controllers
         {
             try
             {
-                Account? account = _accountRepo.Get(accountId);
+                Account? account = _repo.Get(accountId);
                 if (account == null)
                 {
                     return BadRequest(new { errMsg = "This Id doesn't belong to an account."});
@@ -150,8 +168,8 @@ namespace Ea_API.Controllers
                 }
                 if (connection != null)
                 {
-                    Account? parent = _accountRepo.Get(connection.ParentId);
-                    Account? child = _accountRepo.Get(connection.ChildId);
+                    Account? parent = _repo.Get(connection.ParentId);
+                    Account? child = _repo.Get(connection.ChildId);
                     if (parent != null && child != null)
                     {
                         return Ok(new
