@@ -81,5 +81,18 @@ namespace Ea_API.Services
             }
             return (true, null);
         }
+
+        public (bool succes, string? message) ValidateTimeLimitValues(int hour, int min, int sec)
+        {
+            if (hour > 23 || hour < 0)
+            {
+                return (false, "The hour must be within 0-23.");
+            }
+            if (min > 59 || sec > 59 || min < 0 || sec < 0)
+            {
+                return (false, "The minute and second must be within 0-59.");
+            }
+            return (true, null);
+        }
     }
 }

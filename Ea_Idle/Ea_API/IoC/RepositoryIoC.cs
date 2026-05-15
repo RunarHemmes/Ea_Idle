@@ -16,7 +16,7 @@ namespace Ea_API.IoC
         public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
-            //services.AddScoped<IConnectionService, ConnectionService>();
+            services.AddScoped<IConnectionService, ConnectionService>();
             services.AddScoped<ISecurityService, SecurityService>();
             //services.AddScoped<IGameProgressService, GameProgressService>();
         }

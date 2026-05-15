@@ -10,5 +10,7 @@ namespace Ea_API.Interfaces
 
         public (bool succes, string? message) ValidateRegisterValues(LoginModel registerRequest);
 
+        public (bool succes, string? message) ValidateTimeLimitValues(int hour, int min, int sec);
+
     }
 }
