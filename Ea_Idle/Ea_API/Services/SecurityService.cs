@@ -15,7 +15,7 @@ namespace Ea_API.Services
         {
             string? username = loginRequest.Username;
             string? password = loginRequest.Password;
-            if (password == null || username == null)
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 return (false, "Important information is missing!");
             }
@@ -37,7 +37,7 @@ namespace Ea_API.Services
             string? confirm = registerRequest.PassConfirm;
             string? role = registerRequest.Role;
             string? email = registerRequest.Email;
-            if (username == null || password == null || confirm == null || role == null || email == null)
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(confirm) || string.IsNullOrWhiteSpace(role))
             {
                 return (false, "Important information is missing!");
             }
@@ -77,7 +77,12 @@ namespace Ea_API.Services
         public (bool succes, string? message) ValidateProgressValues(GameProgress progress)
         {
             string sp = progress.SilverPennies;
-            if (sp.Contains('-')) {
+            if (string.IsNullOrWhiteSpace(sp) 
+            {
+                return (false, "Important information is missing!");
+            }
+            if (sp.Contains('-')) 
+            {
                 return (false, "Silver Pennies amount can not be negative.");
             }
             return (true, null);
