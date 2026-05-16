@@ -21,12 +21,14 @@ namespace Ea_API.Controllers
         private readonly IAccountService _accountService;
         private readonly ISecurityService _securityService;
         private readonly IConnectionService _connectService;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(IConnectionService connectService, IAccountService accountService, ISecurityService securityService)
+        public AccountController(IConnectionService connectService, IAccountService accountService, ISecurityService securityService, ITokenService tokenService)
         {
             _accountService = accountService;
             _securityService = securityService;
             _connectService = connectService;
+            _tokenService = tokenService;
         }
 
         [AllowAnonymous]
@@ -45,7 +47,7 @@ namespace Ea_API.Controllers
                 {
                     return BadRequest(new { errMsg = errMsg });
                 }
-                string token = _securityService.GenerateToken(user.Username, user.Role);
+                string token = _tokenService.GenerateToken(user.Username, user.Role);
                 return Ok(new { user = user, token = token });
             } catch
             {
