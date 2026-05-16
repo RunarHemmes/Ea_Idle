@@ -12,5 +12,7 @@ namespace Ea_API.Interfaces
 
         public (bool succes, string? message) ValidateTimeLimitValues(int hour, int min, int sec);
 
+        public (bool succes, string? message) ValidateProgressValues(GameProgress progress);
+
     }
 }

@@ -18,21 +18,15 @@ namespace Ea_API.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountRepository _repo;
-        private readonly IConnectionRepository _connectRepo;
-        private readonly IConfiguration _config;
         private readonly IAccountService _accountService;
         private readonly ISecurityService _securityService;
         private readonly IConnectionService _connectService;
 
-        public AccountController(IConnectionService connectService, IAccountService accountService, ISecurityService securityService, IAccountRepository account, IConnectionRepository connect, IConfiguration config)
+        public AccountController(IConnectionService connectService, IAccountService accountService, ISecurityService securityService)
         {
             _accountService = accountService;
             _securityService = securityService;
             _connectService = connectService;
-            _repo = account;
-            _connectRepo = connect;
-            _config = config;
         }
 
         [AllowAnonymous]
@@ -46,8 +40,8 @@ namespace Ea_API.Controllers
                 {
                     return BadRequest(new { errMsg = validateMsg });
                 }
-                (bool loginSucces, LoginModel? user, string? errMsg) = _accountService.Login(loginRequest);
-                if (!loginSucces)
+                (bool succes, LoginModel? user, string? errMsg) = _accountService.Login(loginRequest);
+                if (!succes)
                 {
                     return BadRequest(new { errMsg = errMsg });
                 }
@@ -70,8 +64,8 @@ namespace Ea_API.Controllers
                 {
                     return BadRequest(new { errMsg = validateMsg });
                 }
-                (bool regSucces, LoginModel? user, string? errMsg) = _accountService.Register(registerModel);
-                if (!regSucces)
+                (bool succes, LoginModel? user, string? errMsg) = _accountService.Register(registerModel);
+                if (!succes)
                 {
                     return BadRequest(new { errMsg = errMsg });
                 }
@@ -111,11 +105,6 @@ namespace Ea_API.Controllers
         {
             try
             {
-                //(bool validateSucces, string? validateMsg) = _securityService.
-                //if (!validateSucces)
-                //{
-                //    return BadRequest(new { errMsg = validateMsg });
-                //}
                 (bool succes, Account? parent, Account? child, TimeOnly? timeLimit, string? errMsg) = _connectService.GetConnection(accountId);
                 if (!succes)
                 {

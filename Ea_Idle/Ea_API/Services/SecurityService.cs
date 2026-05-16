@@ -94,5 +94,15 @@ namespace Ea_API.Services
             }
             return (true, null);
         }
+
+        public (bool succes, string? message) ValidateProgressValues(GameProgress progress)
+        {
+            string sp = progress.SilverPennies;
+            if (sp.Contains('-')) {
+                return (false, "Silver Pennies amount can not be negative.");
+            }
+            return (true, null);
+        }
+
     }
 }

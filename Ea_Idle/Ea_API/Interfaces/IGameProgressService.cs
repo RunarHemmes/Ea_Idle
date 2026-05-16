@@ -6,10 +6,10 @@ namespace Ea_API.Interfaces
 {
     public interface IGameProgressService
     {
-        public Task<ActionResult<GameProgress>> GetProgress(int accountId);
+        public (bool succes, GameProgress? progress, string? message) GetProgress(int accountId);
 
-        public Task<ActionResult<GameProgress>> UpdateProgress(GameProgress gameProgress);
+        public (bool succes, GameProgress? progress, string? message) UpdateProgress(GameProgress gameProgress);
 
-        public Task<ActionResult<GameProgress>> NewProgress(int accountId);
+        public (bool succes, GameProgress? progress, string? message) NewProgress(int accountId);
     }
 }

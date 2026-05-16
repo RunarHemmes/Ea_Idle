@@ -18,7 +18,7 @@ namespace Ea_API.IoC
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IConnectionService, ConnectionService>();
             services.AddScoped<ISecurityService, SecurityService>();
-            //services.AddScoped<IGameProgressService, GameProgressService>();
+            services.AddScoped<IGameProgressService, GameProgressService>();
         }
     }
 }
