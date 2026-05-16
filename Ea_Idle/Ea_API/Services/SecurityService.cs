@@ -77,7 +77,7 @@ namespace Ea_API.Services
         public (bool succes, string? message) ValidateProgressValues(GameProgress progress)
         {
             string sp = progress.SilverPennies;
-            if (string.IsNullOrWhiteSpace(sp) 
+            if (string.IsNullOrWhiteSpace(sp))
             {
                 return (false, "Important information is missing!");
             }
