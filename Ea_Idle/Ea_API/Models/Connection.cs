@@ -17,7 +17,7 @@ namespace Ea_API.Models
         [AllowNull]
         [ForeignKey(nameof(Account.Id))]
         public int ChildId { get; set; }
-
+        
         public TimeOnly TimeLimit { get; set; }
 
         public Connection()
