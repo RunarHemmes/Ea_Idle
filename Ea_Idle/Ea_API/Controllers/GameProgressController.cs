@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ea_API.Interfaces;
 using Ea_API.Models;
-using Ea_API.Interfaces;
+using Ea_API.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Ea_API.Controllers
 {
@@ -10,11 +11,13 @@ namespace Ea_API.Controllers
     [Route("api/[controller]")]
     public class GameProgressController : ControllerBase
     {
-        private readonly IGameProgressRepository _repo;
+        private readonly IGameProgressService _progressService;
+        private readonly ISecurityService _securityService;
 
-        public GameProgressController(IGameProgressRepository repo)
+        public GameProgressController(IGameProgressService service, ISecurityService securityService)
         {
-            _repo = repo;
+            _progressService = service;
+            _securityService = securityService;
         }
 
         [HttpGet("Get{accountId}")]
@@ -22,10 +25,10 @@ namespace Ea_API.Controllers
         {
             try
             {
-                GameProgress? progress = _repo.GetByAccountId(accountId);
-                if (progress == null)
+                (bool succes, GameProgress? progress, string? errMsg) = _progressService.GetProgress(accountId);
+                if (!succes)
                 {
-                    return BadRequest("This acount doesn't have a save yet.");
+                    return BadRequest(new { errMsg = errMsg });
                 }
                 return Ok(progress);
             }
@@ -40,12 +43,17 @@ namespace Ea_API.Controllers
         {
             try
             {
-                GameProgress? newProgress = _repo.Update(gameProgress);
-                if (newProgress == null)
+                (bool validateSucces, string? validateMsg) = _securityService.ValidateProgressValues(gameProgress);
+                if (!validateSucces)
                 {
-                    return BadRequest("Update save failed.");
+                    return BadRequest(new { errMsg = validateMsg });
                 }
-                return Ok(newProgress);
+                (bool succes, GameProgress? progress, string? errMsg) = _progressService.UpdateProgress(gameProgress);
+                if (!succes)
+                {
+                    return BadRequest(new { errMsg = errMsg });
+                }
+                return Ok(progress);
             }
             catch
             {
@@ -58,14 +66,12 @@ namespace Ea_API.Controllers
         {
             try
             {
-                GameProgress? oldProgress = _repo.GetByAccountId(accountId);
-                if (oldProgress != null)
+                (bool succes, GameProgress? progress, string? errMsg) = _progressService.NewProgress(accountId);
+                if (!succes)
                 {
-                    return BadRequest("This account already has a save.");
+                    return BadRequest(new { errMsg = errMsg });
                 }
-                GameProgress newProgress = new GameProgress(accountId, "0");
-                newProgress = _repo.Add(newProgress);
-                return Ok(newProgress);
+                return Ok(progress);
             }
             catch
             {

@@ -6,7 +6,7 @@ namespace Ea_API.Models
     [NotMapped]
     public class LoginModel
     {
-        public string Username { get; set; }
+        public string Username {  get; set; }
 
         public string? Email { get; set; }
 

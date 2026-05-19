@@ -17,12 +17,12 @@ namespace Ea_API.Models
         [AllowNull]
         [ForeignKey(nameof(Account.Id))]
         public int ChildId { get; set; }
-
+        
         public TimeOnly TimeLimit { get; set; }
 
         public Connection()
         {
-            TimeLimit = new TimeOnly(23, 00, 00); 
+            TimeLimit = new TimeOnly(23, 59, 59); 
         }
     }
 }

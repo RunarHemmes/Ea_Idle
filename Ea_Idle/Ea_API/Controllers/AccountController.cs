@@ -3,11 +3,14 @@ using Ea_API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Connection = Ea_API.Models.Connection;
 
 namespace Ea_API.Controllers
 {
@@ -15,51 +18,40 @@ namespace Ea_API.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountRepository _accountRepo;
-        private readonly IConnectionRepository _connectRepo;
-        private readonly IConfiguration _config;
+        private readonly IAccountService _accountService;
+        private readonly ISecurityService _securityService;
+        private readonly IConnectionService _connectService;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(IAccountRepository account, IConnectionRepository connect, IConfiguration config)
+        public AccountController(IConnectionService connectService, IAccountService accountService, ISecurityService securityService, ITokenService tokenService)
         {
-            _accountRepo = account;
-            _connectRepo = connect;
-            _config = config;
+            _accountService = accountService;
+            _securityService = securityService;
+            _connectService = connectService;
+            _tokenService = tokenService;
         }
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<ActionResult<Account>> Login([FromBody] LoginModel loginModel)
+        public async Task<ActionResult<LoginModel>> Login([FromBody] LoginModel loginRequest)
         {
             try
             {
-                Account? userAccount = _accountRepo.GetByUsername(loginModel.Username);
-
-                if (userAccount != null)
+                (bool validateSucces, string? validateMsg) = _securityService.ValidateLoginValues(loginRequest);
+                if (!validateSucces)
                 {
-                    if (userAccount.Password == loginModel.Password)
-                    {
-                        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"])); //Warning can be ignored, this (should) always get a string, not null.
-                        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-                        var token = new JwtSecurityToken(
-                            issuer: _config["Jwt:Issuer"],
-                            audience: _config["Jwt:Audience"],
-                            claims: new[] { new Claim(ClaimTypes.Name, userAccount.Username, userAccount.Role) },
-                            expires: DateTime.Now.AddHours(1),
-                            signingCredentials: credentials
-                        );
-
-                        var t = new JwtSecurityTokenHandler().WriteToken(token);
-
-                        LoginModel user = new(userAccount.Username, userAccount.Role, userAccount.Id);
-
-                        return Ok(new { user = user, token = t });
-                    }
+                    return BadRequest(new { errMsg = validateMsg });
                 }
-                return BadRequest(new { errMsg = "The username or password is incorrect." });
+                (bool succes, LoginModel? user, string? errMsg) = _accountService.Login(loginRequest);
+                if (!succes)
+                {
+                    return BadRequest(new { errMsg = errMsg });
+                }
+                string token = _tokenService.GenerateToken(user.Username, user.Role);
+                return Ok(new { user = user, token = token });
             } catch
             {
-                return StatusCode(500, "Something went wrong internally.");
+                return StatusCode(500, "Something went wrong with the API, please try again, or come back later.");
             }
         }
 
@@ -69,63 +61,44 @@ namespace Ea_API.Controllers
         {
             try
             {
-                if (_accountRepo.GetByUsername(registerModel.Username) == null)
+                (bool validateSucces, string? validateMsg) = _securityService.ValidateRegisterValues(registerModel);
+                if (!validateSucces)
                 {
-                    if (_accountRepo.GetByEmail(registerModel.Email) == null)
-                    {
-                        int? highestId = _accountRepo.GetHighestId();
-                        if (!highestId.HasValue)
-                        {
-                            highestId = 0;
-                        }
-                        Account newAccount = new(highestId.Value + 1, registerModel.Username, registerModel.Password, registerModel.Email, registerModel.Role);
-                        newAccount = _accountRepo.Add(newAccount);
-                        LoginModel registerReturn = new(newAccount.Username, newAccount.Role, newAccount.Id);
-                        return Ok(registerReturn);
-                    }
-                    else
-                    {
-                        return BadRequest(new{ errMsg = "This email is already linked to an account."});
-                    }
+                    return BadRequest(new { errMsg = validateMsg });
                 }
-                else
+                (bool succes, LoginModel? user, string? errMsg) = _accountService.Register(registerModel);
+                if (!succes)
                 {
-                    return BadRequest(new{ errMsg = "This username is already taken."});
+                    return BadRequest(new { errMsg = errMsg });
                 }
-            } catch
+                return Ok(user);
+            }
+            catch
             {
-                return StatusCode(500, new{ errMsg = "Something went wrong internally."});
+                return StatusCode(500, new{ errMsg = "Something went wrong with the API, please try again, or come back later." });
             }
         }
 
         [HttpPatch("SetTimeLimit{parentId}-{hour}:{min}:{sec}")]
-        public async Task<ActionResult> SetTimeLimit(int parentId, int hour, int min, int sec)
+        public async Task<ActionResult<Connection>> SetTimeLimit(int parentId, int hour, int min, int sec)
         {
             try
             {
-                Account? account = _accountRepo.Get(parentId);
-                if (account == null)
+                (bool validateSucces, string? validateMsg) = _securityService.ValidateTimeLimitValues(hour, min, sec);
+                if (!validateSucces)
                 {
-                    return BadRequest(new { errMsg = "This Id doesn't belong to an account." });
-                } else if (account.Role != "Parent")
-                {
-                    return BadRequest(new { errMsg = "This is not a parent account." });
+                    return BadRequest(new { errMsg = validateMsg });
                 }
-
-                Connection? connection = _connectRepo.GetByParent(parentId);
-                if (connection != null)
+                (bool succes, Connection? connect, string? errMsg) = _connectService.SetTimeLimit(parentId, hour, min, sec);
+                if (!succes)
                 {
-                    connection.TimeLimit = new(hour, min, sec);
-                    Connection? newConnection = _connectRepo.Update(connection);
-                    if (newConnection != null)
-                    {
-                        return Ok(newConnection);
-                    }
+                    return BadRequest(new { errMsg = errMsg });
                 }
-                return BadRequest(new { errMsg = "This parent account doesn't have a connection yet." });
-            } catch
+                return Ok(connect);
+            }
+            catch
             {
-                return StatusCode(500, new { errMsg = "Something went wrong internally." });
+                return StatusCode(500, new { errMsg = "Something went wrong with the API, please try again, or come back later." });
             }
         }
 
@@ -134,41 +107,24 @@ namespace Ea_API.Controllers
         {
             try
             {
-                Account? account = _accountRepo.Get(accountId);
-                if (account == null)
+                (bool succes, Account? parent, Account? child, TimeOnly? timeLimit, string? errMsg) = _connectService.GetConnection(accountId);
+                if (!succes)
                 {
-                    return BadRequest(new { errMsg = "This Id doesn't belong to an account."});
+                    return BadRequest(new { errMsg = errMsg });
                 }
-                Connection? connection;
-                if (account.Role == "Parent")
+                return Ok(new
                 {
-                    connection = _connectRepo.GetByParent(accountId);
-                }
-                else
-                {
-                    connection = _connectRepo.GetByChild(accountId);
-                }
-                if (connection != null)
-                {
-                    Account? parent = _accountRepo.Get(connection.ParentId);
-                    Account? child = _accountRepo.Get(connection.ChildId);
-                    if (parent != null && child != null)
-                    {
-                        return Ok(new
-                        {
-                            parentId = connection.ParentId,
-                            parentName = parent.Username,
-                            childId = connection.ChildId,
-                            childName = child.Username,
-                            timeLimit = connection.TimeLimit
-                        });
-                    }
-                }
-                return BadRequest(new { errMsg = "This parent account doesn't have a connection yet." });
-            } catch
+                    parentId = parent.Id,
+                    parentName = parent.Username,
+                    childId = child.Id,
+                    childName = child.Username,
+                    timeLimit = timeLimit
+                });
+            }
+            catch
             {
-                return StatusCode(500, new { errMsg = "Something went wrong internally." });
+                return StatusCode(500, new { errMsg = "Something went wrong with the API, please try again, or come back later." });
             }
         }
-     }
+    }
 }
