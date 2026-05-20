@@ -416,4 +416,9 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+#The appsettings
 /Ea_Idle/Ea_API/appsettings.json
+
+#The database files
+*.sqlite
