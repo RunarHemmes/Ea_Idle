@@ -12,9 +12,11 @@ namespace Ea_API.Services
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _repo;
-        public AccountService(IAccountRepository repo)
+        private readonly ITokenService _tokenService;
+        public AccountService(IAccountRepository repo, ITokenService tokenService)
         {
             _repo = repo;
+            _tokenService = tokenService;
         }
 
         public (bool succes, LoginModel? account, string? message) Login(LoginModel loginRequest)
@@ -43,7 +45,8 @@ namespace Ea_API.Services
                     {
                         highestId = 0;
                     }
-                    Account newAccount = new(highestId.Value + 1, registerRequest.Username, registerRequest.Password, registerRequest.Email, registerRequest.Role, 000000);
+                    int connectionCode = _tokenService.GenerateConnectionCode();
+                    Account newAccount = new(highestId.Value + 1, registerRequest.Username, registerRequest.Password, registerRequest.Email, registerRequest.Role, connectionCode);
                     newAccount = _repo.Add(newAccount);
                     LoginModel registerReturn = new(newAccount.Username, newAccount.Role, newAccount.Id);
                     return (true, registerReturn, null);
