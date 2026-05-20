@@ -74,6 +74,19 @@ namespace Ea_API.Repositories
             }
         }
 
+        public Account? GetByConnectionCode(int connectionCode)
+        {
+            try
+            {
+                Account result = _context.Accounts.Single(a => a.ConnectionCode == connectionCode);
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public Account Add(Account account)
         {
             try

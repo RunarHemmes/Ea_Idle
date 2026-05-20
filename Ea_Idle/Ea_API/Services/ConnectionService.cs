@@ -66,5 +66,74 @@ namespace Ea_API.Services
             }
             return (false, null, null, null, "This account doesn't have a connection yet.");
         }
+
+        public (bool succes, Connection? connection, string? message) SetConnect(int accountId, int connectCode)
+        {
+            Account? account = _accountRepo.Get(accountId);
+            if (account == null)
+            {
+                return (false, null, "This Id doesn't belong to an account.");
+            }
+            Connection? existingConnect;
+            if (account.Role == "Parent")
+            {
+                existingConnect = _connectRepo.GetByParent(accountId);
+            } else
+            {
+                existingConnect = _connectRepo.GetByChild(accountId);
+            }
+            Account? otherAccount = _accountRepo.GetByConnectionCode(connectCode);
+            if (otherAccount == null)
+            {
+                return (false, null, "There is no account with this code.");
+            }
+            if (otherAccount.Role == account.Role)
+            {
+                return (false, null, "The account you're trying to connect with has the same role as you.");
+            }
+            if (existingConnect == null)
+            {
+                Connection newConnection = new();
+                if (account.Role == "Parent")
+                {
+                    newConnection.ParentId = account.Id;
+                    newConnection.ParentStatus = "Connected";
+                    newConnection.ChildId = otherAccount.Id;
+                    newConnection.ChildStatus = "Pending";
+                } else
+                {
+                    newConnection.ChildId = account.Id;
+                    newConnection.ChildStatus = "Connected";
+                    newConnection.ParentId = otherAccount.Id;
+                    newConnection.ParentStatus = "Pending";
+                }
+                Connection succesfull = _connectRepo.Add(newConnection);
+                return (true, succesfull, null);
+            } else
+            {
+                if (account.Role == "Parent")
+                {
+                    if (existingConnect.ChildId != otherAccount.Id)
+                    {
+                        return (false, null, "You already have a connection with a different account!");
+                    }
+                    existingConnect.ParentStatus = "Connected";
+                } else
+                {
+                    if (existingConnect.ParentId != otherAccount.Id)
+                    {
+                        return (false, null, "You already have a connection with a different account!");
+                    }
+                    existingConnect.ChildStatus = "Connected";
+                }
+                Connection? succesfull = _connectRepo.Update(existingConnect);
+                if (succesfull == null)
+                {
+                    return (false, null, "Update connection failed.");
+                }
+                return (true, succesfull, null);
+            }
+
+        }
     }
 }

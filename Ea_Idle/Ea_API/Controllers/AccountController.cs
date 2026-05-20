@@ -126,5 +126,23 @@ namespace Ea_API.Controllers
                 return StatusCode(500, new { errMsg = "Something went wrong with the API, please try again, or come back later." });
             }
         }
+
+        [HttpPost("SetConnect{accountId}")]
+        public async Task<ActionResult<Connection>> SetConnect([FromBody] int connectCode, int accountId)
+        {
+            try
+            {
+                (bool succes, Connection? connect, string? errMsg) = _connectService.SetConnect(accountId, conn);
+                if (!succes)
+                {
+                    return BadRequest(new { errMsg = errMsg });
+                }
+                return Ok(connect);
+            }
+            catch
+            {
+                return StatusCode(500, new { errMsg = "Something went wrong with the API, please try again, or come back later." });
+            }
+        }
     }
 }

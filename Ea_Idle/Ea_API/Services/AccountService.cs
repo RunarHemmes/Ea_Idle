@@ -43,7 +43,7 @@ namespace Ea_API.Services
                     {
                         highestId = 0;
                     }
-                    Account newAccount = new(highestId.Value + 1, registerRequest.Username, registerRequest.Password, registerRequest.Email, registerRequest.Role);
+                    Account newAccount = new(highestId.Value + 1, registerRequest.Username, registerRequest.Password, registerRequest.Email, registerRequest.Role, 000000);
                     newAccount = _repo.Add(newAccount);
                     LoginModel registerReturn = new(newAccount.Username, newAccount.Role, newAccount.Id);
                     return (true, registerReturn, null);
