@@ -12,5 +12,7 @@ namespace Ea_API.Interfaces
 
         public (bool succes, string? message) ValidateProgressValues(GameProgress progress);
 
+        public (bool succes, string? message) ValidateConnectionCode(int code);
+
     }
 }

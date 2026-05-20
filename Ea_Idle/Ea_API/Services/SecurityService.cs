@@ -88,5 +88,14 @@ namespace Ea_API.Services
             return (true, null);
         }
 
+        public (bool succes, string? message) ValidateConnectionCode(int code)
+        {
+            if (code.ToString().Length != 6)
+            {
+                return (false, "The connection code should be 6 digits.");
+            }
+            return (true, null);
+        }
+
     }
 }

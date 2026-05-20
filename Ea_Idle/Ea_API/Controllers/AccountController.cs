@@ -132,7 +132,12 @@ namespace Ea_API.Controllers
         {
             try
             {
-                (bool succes, Connection? connect, string? errMsg) = _connectService.SetConnect(accountId, conn);
+                (bool validateSucces, string? validateMsg) = _securityService.ValidateConnectionCode(connectCode);
+                if (!validateSucces)
+                {
+                    return BadRequest(new { errMsg = validateMsg });
+                }
+                (bool succes, Connection? connect, string? errMsg) = _connectService.SetConnect(accountId, connectCode);
                 if (!succes)
                 {
                     return BadRequest(new { errMsg = errMsg });
