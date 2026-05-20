@@ -8,13 +8,13 @@
     <div class="Settings_Page" id="Parent_Page">
         <section class="Settings_Sect" id="Child_Sect">
             <h2 id="Child_Head">Connected to child:</h2>
-            <span id="Child_Lbl">Gollum8115</span>
+            <span id="Child_Lbl"></span>
         </section>
         <div class="Line" id="SLine1"></div>
         <section class="Settings_Sect" id="Limit_Sect">
             <h2>
                 <span>Daily limit for </span>
-                <span id="Child_Span">Gollum8115</span>
+                <span id="Child_Span"></span>
             </h2>
             <div class="Time_Group">
                 <select class="Time_Select" id="Hour_Select"></select>
@@ -34,11 +34,16 @@
             </button>
         </section>
         <div class="Line" id="SLine2"></div>
-        <section class="Settings_Sect" id="WIP_Sect">
-            <h1>Under construction...</h1>
-            <p>Sorry, the rest of this page is still being worked on. Please come back later!</p>
+        <section class="Settings_Sect" id="My_Code_Sect">
+            <h2>Your code:</h2>
+            <p id="My_Code_P"></p>
         </section>
         <div class="Line" id="SLine3"></div>
+        <section class="Settings_Sect" id="Connect_Code_Sect">
+            <h2>Connection code:</h2>
+            <input class="Form_Input" id="Code_Input" aria-describedby="Code_Help" type="number", inputmode="numeric" maxlength="6"/>
+            <span id="Code_Help" class="Hidden"></span>
+        </section>
     </div>
 
     <div class="Settings_Page Hidden" id="General_Page">

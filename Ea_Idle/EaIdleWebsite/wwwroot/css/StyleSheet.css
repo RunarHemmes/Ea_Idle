@@ -14,7 +14,6 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
 }
 
 button {
@@ -150,6 +149,11 @@ h2 {
 .Sub_Nav_Btn {
     width: 33%;
     height: 5vh;
+}
+
+.Scrollable {
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .Hidden {
@@ -327,7 +331,7 @@ CSS for desktop
     }
 
     #SLine3 {
-        order: 6;
+        order: 7;
     }
 
     #Child_Sect {
@@ -340,9 +344,14 @@ CSS for desktop
         width: 50%;
     }
 
-    #WIP_Sect {
+    #My_Code_Sect {
         order: 5;
-        width: 100%;
+        width: 50%;
+    }
+
+    #Connect_Code_Sect {
+        order: 6;
+        width: 50%;
     }
 
 }
