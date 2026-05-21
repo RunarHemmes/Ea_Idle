@@ -61,7 +61,7 @@ namespace Ea_API.Services
             }
             if (connection.ChildStatus == "Pending" || connection.ParentStatus == "Pending")
             {
-                return (false, null, null, null, "The connection for this account is still pending. Please tell the other account owner to connect too.");
+                return (false, null, null, null, "The connection for this account is still pending.");
             }
             Account? parent = _accountRepo.Get(connection.ParentId);
             Account? child = _accountRepo.Get(connection.ChildId);
@@ -69,6 +69,7 @@ namespace Ea_API.Services
             {
                 return (true, parent, child, connection.TimeLimit, null);
             }
+            return (false, null, null, null, "Either the parent or child account doesn't exist.");
         }
 
         public (bool succes, Connection? connection, string? message) SetConnect(int accountId, int connectCode)

@@ -110,10 +110,10 @@
             return data.errMsg;
         }
         if (this.user.role == "Parent") {
-            this.user.connectedName = data.childName;
+            //this.user.connectedName = data.childName;
             this.user.connectedId = data.childId;
         } else {
-            this.user.connectedName = data.parentName;
+            //this.user.connectedName = data.parentName;
             this.user.connectedId = data.parentId;
         }
         this.user.connectedTimeLimit = data.timeLimit;
