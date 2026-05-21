@@ -18,7 +18,9 @@ namespace Ea_API.Models
 
         public int Id { get; set; }
 
-        public LoginModel(string username, string role, int id, string? email = null,  string? password = null, string? passConfirm = null)
+        public int? ConnectionCode { get; set; }
+
+        public LoginModel(string username, string role, int id, string? email = null,  string? password = null, string? passConfirm = null, int? code = null)
         {
             Username = username;
             Email = email;
@@ -26,6 +28,7 @@ namespace Ea_API.Models
             Password = password;
             PassConfirm = passConfirm;
             Id = id;
+            ConnectionCode = code;
         }
     }
 }

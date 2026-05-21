@@ -93,6 +93,33 @@
         this.user.connectedTimeLimit = data.timeLimit;
         return null;
     }
+
+    async SetConnection(code) {
+        const response = await fetch(`https://localhost:3000/api/Account/SetConnect${this.user.id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ 
+                connectCode: code
+            })
+        });
+        const data = await response.json();
+        console.log(data);
+        if (!response.ok) {
+            return data.errMsg;
+        }
+        if (this.user.role == "Parent") {
+            this.user.connectedName = data.childName;
+            this.user.connectedId = data.childId;
+        } else {
+            this.user.connectedName = data.parentName;
+            this.user.connectedId = data.parentId;
+        }
+        this.user.connectedTimeLimit = data.timeLimit;
+        return "Ok";
+
+    }
  }
 
 export default AccountAPI;
