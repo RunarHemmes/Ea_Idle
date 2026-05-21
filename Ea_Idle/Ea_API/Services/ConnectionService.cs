@@ -55,16 +55,20 @@ namespace Ea_API.Services
             {
                 connection = _connectRepo.GetByChild(accountId);
             }
-            if (connection != null)
+            if (connection == null)
             {
-                Account? parent = _accountRepo.Get(connection.ParentId);
-                Account? child = _accountRepo.Get(connection.ChildId);
-                if (parent != null && child != null)
-                {
-                    return (true, parent, child, connection.TimeLimit, null);
-                }
+                return (false, null, null, null, "This account doesn't have a connection yet.");
             }
-            return (false, null, null, null, "This account doesn't have a connection yet.");
+            if (connection.ChildStatus == "Pending" || connection.ParentStatus == "Pending")
+            {
+                return (false, null, null, null, "The connection for this account is still pending. Please tell the other account owner to connect too.");
+            }
+            Account? parent = _accountRepo.Get(connection.ParentId);
+            Account? child = _accountRepo.Get(connection.ChildId);
+            if (parent != null && child != null) 
+            {
+                return (true, parent, child, connection.TimeLimit, null);
+            }
         }
 
         public (bool succes, Connection? connection, string? message) SetConnect(int accountId, int connectCode)
