@@ -24,6 +24,7 @@
         this.user.name = data.user.username;
         this.user.id = data.user.id;
         this.user.role = data.user.role;
+        this.user.code = data.user.connectionCode;
 
         sessionStorage.setItem("token", data.token);
         return null;
@@ -95,14 +96,14 @@
     }
 
     async SetConnection(code) {
+        const token = sessionStorage.token;
         const response = await fetch(`https://localhost:3000/api/Account/SetConnect${this.user.id}`, {
             method: "POST",
             headers: {
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ 
-                connectCode: code
-            })
+            body: JSON.stringify(code)
         });
         const data = await response.json();
         console.log(data);

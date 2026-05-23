@@ -5,7 +5,7 @@
         <button class="Sub_Nav_Btn" id="Settings_Parental">Parental Supervision</button>
     </div>
 
-    <div class="Settings_Page" id="Parent_Page">
+    <div class="Settings_Page Scrollable" id="Parent_Page">
         <section class="Settings_Sect" id="Child_Sect">
             <h2 id="Child_Head">Connected to child:</h2>
             <span id="Child_Lbl"></span>
@@ -40,11 +40,13 @@
         </section>
         <div class="Line" id="SLine3"></div>
         <section class="Settings_Sect" id="Connect_Code_Sect">
-            <h2>Connection code:</h2>
-            <input class="Form_Input" id="Code_Input" aria-describedby="Code_Help" type="number", inputmode="numeric" maxlength="6"/>
-            <span id="Code_Help" class="Hidden">Please enter the connection code.</span>
+            <div class="Form_Group">
+                <h2>Connection code:</h2>
+                <input class="Form_Input" id="Code_Input" aria-describedby="Code_Help" type="number", inputmode="numeric" maxlength="6"/>
+                <span id="Code_Help" class="Hidden">Please enter the connection code.</span>
+            </div>
             <button class="Form_Btn" id="Connect_Btn">Connect</button>
-            <span id="Connect_Error"></span>
+            <span id="Connect_Error" class="Form_Alert"></span>
         </section>
     </div>
 

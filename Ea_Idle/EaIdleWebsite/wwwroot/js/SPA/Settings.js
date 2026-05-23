@@ -20,19 +20,25 @@
         this.SetCurrentLimit();
     }
 
-    TryToConnect() {
+    async TryToConnect() {
         const strCode = document.getElementById("Code_Input").value;
         const code = parseInt(strCode);
-        const setResult = this.accountAPI.SetConnection(code);
+        if (isNaN(code)) {
+            document.getElementById("Connect_Error").innerText = "Please enter a number.";
+            return;
+        }
+        const setResult = await this.accountAPI.SetConnection(code);
         if (setResult != "Ok") {
             document.getElementById("Connect_Error").innerText = setResult;
             return;
         }
-        const getResult = this.accountAPI.GetConnection();
+        const getResult = await this.accountAPI.GetConnection();
         if (getResult == null) {
             window.alert(`Succesfully connected with ${this.user.connectedName}.`);
+            return;
         } else if (getResult == "The connection for this account is still pending.") {
             window.alert("The connection is now pending.");
+            return;
         }
         document.getElementById("Connect_Error").innerText = getResult;
         return;

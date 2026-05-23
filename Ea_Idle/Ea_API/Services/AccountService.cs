@@ -27,7 +27,7 @@ namespace Ea_API.Services
             {
                 if (userAccount.Password == loginRequest.Password)
                 {
-                    LoginModel user = new(userAccount.Username, userAccount.Role, userAccount.Id, code: userAccount.ConnectionCode);
+                    LoginModel user = new(userAccount.Username, userAccount.Role, userAccount.Id, connectionCode: userAccount.ConnectionCode);
                     return (true, user, null);
                 }
             }
