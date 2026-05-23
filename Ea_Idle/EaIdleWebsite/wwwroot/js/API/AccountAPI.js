@@ -82,6 +82,8 @@
         const data = await response.json();
         console.log(data);
         if (!response.ok) {
+            this.user.connectedId = null;
+            this.user.connectedName = null;
             return data.errMsg;
         }
         if (this.user.role == "Parent") {

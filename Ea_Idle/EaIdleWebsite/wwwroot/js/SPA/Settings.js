@@ -11,13 +11,17 @@
     SettingsLoaded() {
         document.getElementById("Limit_Btn").addEventListener("click", this.setTimeLimit.bind(this));
         document.getElementById("Connect_Btn").addEventListener("click", this.TryToConnect.bind(this));
-        document.getElementById("Child_Span").innerText = this.user.connectedName;
-        document.getElementById("Child_Lbl").innerText = this.user.connectedName;
+        this.SetChildNames();
         if (this.user.role != "Parent") {
             document.getElementById("Child_Sect").classList.add("Hidden");
             document.getElementById("Limit_Sect").classList.add("Hidden");
         }
         this.SetCurrentLimit();
+    }
+
+    SetChildNames() {
+        document.getElementById("Child_Span").innerText = this.user.connectedName;
+        document.getElementById("Child_Lbl").innerText = this.user.connectedName;
     }
 
     async TryToConnect() {
@@ -35,6 +39,7 @@
         const getResult = await this.accountAPI.GetConnection();
         if (getResult == null) {
             window.alert(`Succesfully connected with ${this.user.connectedName}.`);
+            this.SetChildNames();
             return;
         } else if (getResult == "The connection for this account is still pending.") {
             window.alert("The connection is now pending.");
