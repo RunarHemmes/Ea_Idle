@@ -10,14 +10,18 @@ namespace Ea_API.Models
         [Key]
         public int Id { get; set; }
 
-        [AllowNull]
         [ForeignKey(nameof(Account.Id))]
         public int ParentId { get; set; }
 
-        [AllowNull]
         [ForeignKey(nameof(Account.Id))]
         public int ChildId { get; set; }
-        
+
+        [NotNull]
+        public string? ChildStatus { get; set; }
+
+        [NotNull]
+        public string? ParentStatus { get; set; }
+
         public TimeOnly TimeLimit { get; set; }
 
         public Connection()

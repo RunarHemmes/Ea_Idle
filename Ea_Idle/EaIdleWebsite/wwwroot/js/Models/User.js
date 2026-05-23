@@ -5,6 +5,7 @@
     connectedName
     connectedId
     connectedTimeLimit
+    code
 
     constructor(username, id) {
         this.name = username;

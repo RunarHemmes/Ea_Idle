@@ -1,6 +1,7 @@
 ﻿using Ea_API.Models;
 using Ea_API.Interfaces;
 using Ea_API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ea_API.Repositories
 {
@@ -17,7 +18,7 @@ namespace Ea_API.Repositories
         {
             try
             {
-                List<GameProgress> result = _context.GameProgresses.ToList();
+                List<GameProgress> result = _context.GameProgresses.AsNoTracking().ToList();
                 return result;
             }
             catch
@@ -30,7 +31,7 @@ namespace Ea_API.Repositories
         {
             try
             {
-                GameProgress result = _context.GameProgresses.Single(g => g.AccountId == accountId);
+                GameProgress result = _context.GameProgresses.AsNoTracking().Single(g => g.AccountId == accountId);
                 return result;
             }
             catch

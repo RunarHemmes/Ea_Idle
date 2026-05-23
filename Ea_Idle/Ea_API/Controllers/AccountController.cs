@@ -1,4 +1,4 @@
-﻿using Ea_API.Interfaces;
+﻿ using Ea_API.Interfaces;
 using Ea_API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -120,6 +120,29 @@ namespace Ea_API.Controllers
                     childName = child.Username,
                     timeLimit = timeLimit
                 });
+            }
+            catch
+            {
+                return StatusCode(500, new { errMsg = "Something went wrong with the API, please try again, or come back later." });
+            }
+        }
+
+        [HttpPost("SetConnect{accountId}")]
+        public async Task<ActionResult<Connection>> SetConnect([FromBody] int connectCode, int accountId)
+        {
+            try
+            {
+                (bool validateSucces, string? validateMsg) = _securityService.ValidateConnectionCode(connectCode);
+                if (!validateSucces)
+                {
+                    return BadRequest(new { errMsg = validateMsg });
+                }
+                (bool succes, Connection? connect, string? errMsg) = _connectService.SetConnect(accountId, connectCode);
+                if (!succes)
+                {
+                    return BadRequest(new { errMsg = errMsg });
+                }
+                return Ok(connect);
             }
             catch
             {
