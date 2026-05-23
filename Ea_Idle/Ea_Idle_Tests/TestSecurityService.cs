@@ -147,5 +147,40 @@ namespace Ea_Idle_Tests
             Assert.IsNull(msg);
         }
 
+        [TestMethod]
+        [DataRow(92750, "The connection code should be 6 digits.", DisplayName = "Code too short")]
+        [DataRow(9275021, "The connection code should be 6 digits.", DisplayName = "Code too long")]
+        [DataRow(012345, "The connection code should be 6 digits.", DisplayName = "Code start with 0")]
+        public void CodeValidationReturnsFalse(int code, string message)
+        {
+            (bool succes, string? msg) = _securityService.ValidateConnectionCode(code);
+
+            Assert.IsFalse(succes);
+            Assert.AreEqual<string>(msg, message);
+        }
+
+        [TestMethod]
+        [DataRow(927502, DisplayName = "All normal")]
+        [DataRow(111111, DisplayName = "Code is all one number")]
+        [DataRow(123456, DisplayName = "Code is counting up")]
+        public void CodeValidationReturnsTrue(int code)
+        {
+            (bool succes, string? msg) = _securityService.ValidateConnectionCode(code);
+
+            Assert.IsTrue(succes);
+            Assert.IsNull(msg);
+        }
+
+        [TestMethod]
+        public void CodeGeneratorReturnsValidCode()
+        {
+            int code = _securityService.GenerateConnectionCode();
+
+            (bool succes, string? msg) = _securityService.ValidateConnectionCode(code);
+
+            Assert.IsTrue(succes);
+            Assert.IsNull(msg);
+        }
+
     }
 }
