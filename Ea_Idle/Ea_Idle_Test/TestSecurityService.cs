@@ -3,7 +3,7 @@ using Ea_API.Models;
 using Ea_API.Services;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 
-namespace Ea_Idle_Tests
+namespace Ea_Idle_Test
 {
     [TestClass]
     public sealed class TestSecurityService
