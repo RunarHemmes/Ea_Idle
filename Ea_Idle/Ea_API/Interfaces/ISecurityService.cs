@@ -14,5 +14,6 @@ namespace Ea_API.Interfaces
 
         public (bool succes, string? message) ValidateConnectionCode(int code);
 
+        public int GenerateConnectionCode();
     }
 }

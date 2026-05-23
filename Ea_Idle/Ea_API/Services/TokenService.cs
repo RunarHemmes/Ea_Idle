@@ -28,17 +28,5 @@ namespace Ea_API.Services
             var t = new JwtSecurityTokenHandler().WriteToken(token);
             return t;
         }
-
-        public int GenerateConnectionCode()
-        {
-            Random random = new Random();
-            string strCode = "";
-            for (int i = 0; i < 6; i++)
-            {
-                strCode += random.Next(10).ToString();
-            }
-            int code = int.Parse(strCode);
-            return code;
-        }
     }
 }

@@ -96,6 +96,22 @@ namespace Ea_API.Services
             }
             return (true, null);
         }
-
+         
+        public int GenerateConnectionCode()
+        {
+            Random random = new Random();
+            string strCode = "";
+            for (int i = 0; i < 6; i++)
+            {
+                strCode += random.Next(10).ToString();
+            }
+            while (strCode[0] == '0')
+            {
+                string part = strCode.Substring(1);
+                strCode = random.Next(10).ToString() + part;
+            }
+            int code = int.Parse(strCode);
+            return code;
+        }
     }
 }
