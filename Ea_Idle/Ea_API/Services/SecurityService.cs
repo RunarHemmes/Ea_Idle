@@ -88,5 +88,30 @@ namespace Ea_API.Services
             return (true, null);
         }
 
+        public (bool succes, string? message) ValidateConnectionCode(int code)
+        {
+            if (code.ToString().Length != 6)
+            {
+                return (false, "The connection code should be 6 digits.");
+            }
+            return (true, null);
+        }
+         
+        public int GenerateConnectionCode()
+        {
+            Random random = new Random();
+            string strCode = "";
+            for (int i = 0; i < 6; i++)
+            {
+                strCode += random.Next(10).ToString();
+            }
+            while (strCode[0] == '0')
+            {
+                string part = strCode.Substring(1);
+                strCode = random.Next(10).ToString() + part;
+            }
+            int code = int.Parse(strCode);
+            return code;
+        }
     }
 }
