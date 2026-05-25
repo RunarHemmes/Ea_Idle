@@ -6,6 +6,10 @@
     flex-direction: column;
 }
 
+a {
+    color: #f3b224;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -66,9 +70,9 @@ h2 {
     background-color: #111111;
 }
 
-.Nav_Btn:focus {
-    background-color: #333442;
-}
+    .Nav_Btn:focus {
+        background-color: #333442;
+    }
 
 .Nav_Txt {
     display: none;
@@ -90,13 +94,13 @@ h2 {
     min-width: 70px;
     min-height: 40px;
     max-width: 400px;
-    max-height: 100px;
+    max-height: 75px;
     width: 50vw;
     height: 10vw;
     border-style: solid;
     border-width: 4px;
-    font-size: 4vh;
-    font-weight:550;
+    font-size: 7vw;
+    font-weight: 550;
 }
 
 .Form_Input {
@@ -110,10 +114,14 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 2px;
+    margin-bottom: 1px;
 }
 
 .Form_Lbl {
     font-size: 3.5vh;
+    margin-bottom: 5px;
+    margin-top: 15px;
 }
 
 .Time_Group {
@@ -141,7 +149,14 @@ h2 {
 .Sub_Nav_Btn {
     width: 33%;
     height: 5vh;
+    font-size: 120%;
+    font-weight: 550;
 }
+
+/*.Scrollable {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}*/
 
 .Hidden {
     display: none;
@@ -169,10 +184,10 @@ h2 {
     font-weight: 650;
 }
 
-#Sp_Display:focus {
-    border-style: solid;
-    border-color: #ffffff;
-}
+    #Sp_Display:focus {
+        border-style: solid;
+        border-color: #ffffff;
+    }
 
 #Sp_Div {
     display: flex;
@@ -195,17 +210,22 @@ h2 {
 }
 
 #Child_Lbl {
-/*    border-style: solid;*/
+    /*    border-style: solid;*/
     border-bottom: solid;
     border-color: #C0C0C0;
 }
 
 #App {
     order: 1;
+    margin-bottom: 13.5vw;
 }
 
 #Limit_Btn {
-    height: 50px;
+/*    height: 50px;*/
+    margin-top: 5px;
+}
+
+#Connect_Btn {
     margin-top: 5px;
 }
 
@@ -213,12 +233,12 @@ h2 {
     display: flex;
     flex-direction: row;
     width: 100%;
-/*    justify-items: center;*/
+    /*    justify-items: center;*/
 }
 
-/* ================
+/* =================
 CSS for desktop 
-=================*/
+================= */
 @media (min-width: 1024px) {
     body {
         flex-direction: row;
@@ -252,6 +272,10 @@ CSS for desktop
         width: 3.5vw;
         padding: 0;
         padding-top: 0.4vw;
+    }
+
+    .Form_Btn {
+        font-size: 3vh;
     }
 
     .App {
@@ -318,7 +342,7 @@ CSS for desktop
     }
 
     #SLine3 {
-        order: 6;
+        order: 7;
     }
 
     #Child_Sect {
@@ -331,9 +355,13 @@ CSS for desktop
         width: 50%;
     }
 
-    #WIP_Sect {
+    #My_Code_Sect {
         order: 5;
-        width: 100%;
+        width: 50%;
     }
 
+    #Connect_Code_Sect {
+        order: 6;
+        width: 50%;
+    }
 }

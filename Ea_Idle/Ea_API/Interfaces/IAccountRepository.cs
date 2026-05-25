@@ -14,6 +14,8 @@ namespace Ea_API.Interfaces
 
         public Account? GetByEmail(string email);
 
+        public Account? GetByConnectionCode(int connectionCode);
+
         public Account Add(Account account);
 
         public Account? Update(Account account);

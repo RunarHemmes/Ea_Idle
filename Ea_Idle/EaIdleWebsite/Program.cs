@@ -4,6 +4,7 @@ var app = builder.Build();
 // Make sure the browser doesn't get a 404 on page refresh:
 app.MapGet("/", () => Results.File("index.html", "text/html"));
 app.MapGet("/Login", () => Results.File("index.html", "text/html"));
+app.MapGet("/Registration", () => Results.File("index.html", "text/html"));
 app.MapGet("/Mining", () => Results.File("index.html", "text/html"));
 app.MapGet("/Tharni", () => Results.File("index.html", "text/html"));
 app.MapGet("/Castar", () => Results.File("index.html", "text/html"));

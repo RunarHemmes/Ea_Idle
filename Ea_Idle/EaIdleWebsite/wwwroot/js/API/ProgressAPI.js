@@ -29,7 +29,10 @@ class ProgressAPI {
         }
         const data = await response.json();
 
-        const spAmount = parseInt(data.silverPennies);
+        let spAmount = parseInt(data.silverPennies);
+        if (isNaN(spAmount)) {
+            spAmount = 0;
+        }
         const progress = new Progress(spAmount);
         return progress;
     }
@@ -51,7 +54,10 @@ class ProgressAPI {
             return null;
         }
         const data = await response.json();
-        const spAmount = parseInt(data.SilverPennies);
+        const spAmount = parseInt(data.silverPennies);
+        if (isNaN(spAmount)) {
+            spAmount = 0;
+        }
         const progress = new Progress(spAmount);
         progress;
         return progress;

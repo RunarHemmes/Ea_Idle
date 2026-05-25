@@ -14,8 +14,8 @@ namespace Ea_API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>().HasData(
-                new(1, "Harold", "passwordHarold", "Harold@mail.com", "Player"),
-                new(2, "John", "passwordJohn", "John@mail.com", "Parent")
+                new(1, "Harold", "passwordHarold", "Harold@mail.com", "Player", 123456),
+                new(2, "John", "passwordJohn", "John@mail.com", "Parent", 666666)
                 );
         }
     }

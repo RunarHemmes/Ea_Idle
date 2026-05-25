@@ -11,10 +11,15 @@ namespace Ea_API.Models
 
         public string SilverPennies { get; set; }
 
-        public GameProgress(int accountId, string silverPennies)
+        public GameProgress(int accountId)
         {
             AccountId = accountId;
-            SilverPennies = silverPennies;
+            SetDefault();
+        }
+
+        public void SetDefault()
+        {
+            SilverPennies = "0";
         }
     }
 }

@@ -10,6 +10,7 @@ class Displays {
 
         window.addEventListener("mining.html", this.MiningLoaded.bind(this));
         window.addEventListener("login.html", this.LoginLoaded.bind(this));
+        window.addEventListener("registration.html", this.RegistrationLoaded.bind(this))
         window.addEventListener("tharni.html", this.RemoveAllListeners.bind(this));
         window.addEventListener("castar.html", this.RemoveAllListeners.bind(this));
         window.addEventListener("silmaril.html", this.RemoveAllListeners.bind(this));
@@ -53,6 +54,10 @@ class Displays {
         this.RemoveNavBar();
     }
 
+    RegistrationLoaded() {
+        this.RemoveNavBar();
+    }
+
     LoadGeneralSettings() {
         this.HideSettingsPages();
         document.getElementById("General_Page").hidden = false;
@@ -73,6 +78,7 @@ class Displays {
         document.getElementById("Hour_Select").addEventListener("change", this.SetTimeLimitBtn.bind(this));
         document.getElementById("Min_Select").addEventListener("change", this.SetTimeLimitBtn.bind(this));
         document.getElementById("Sec_Select").addEventListener("change", this.SetTimeLimitBtn.bind(this));
+        document.getElementById("My_Code_P").innerText = this.user.code;
     }
 
     SetTimeOptions() {
@@ -83,7 +89,12 @@ class Displays {
             document.querySelector("#Min_Select").add(new Option(i, i), undefined);
             document.querySelector('#Sec_Select').add(new Option(i, i), undefined);
         }
-        const times = this.user.connectedTimeLimit.split(":");
+        var times;
+        try {
+            times = this.user.connectedTimeLimit.split(":");
+        } catch {
+            times = ["0", "0", "0"];
+        }
 
         document.getElementById("Hour_Select").value = parseInt(times[0]);
         document.getElementById("Min_Select").value = parseInt(times[1]);

@@ -33,6 +33,9 @@ class App {
 
         this.router.Init();
         window.addEventListener("LoggedIn", this.LoadProgress.bind(this));
+        window.addEventListener("Registered", (e) => {
+            this.router.NavTo("/Login");
+        })
     }
 
     async LoadProgress() {

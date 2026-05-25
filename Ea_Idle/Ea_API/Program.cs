@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<EaIdleDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("APIDbCS")));
 builder.Services.AddRepositories();
+builder.Services.AddServices();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
