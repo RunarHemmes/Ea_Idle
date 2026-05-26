@@ -22,18 +22,22 @@ class ProgressAPI {
 
         if (!response.ok) {
             if (response.status == 400) {
-                const newSave = this.NewProgress();
-                return newSave;
-            }
+                var data = await this.NewProgress();
+                // return newSave;
+            } else {
             return null;
+            }
+        } else {
+        var data = await response.json();
         }
-        const data = await response.json();
 
         let spAmount = parseInt(data.silverPennies);
         if (isNaN(spAmount)) {
             spAmount = 0;
         }
-        const progress = new Progress(spAmount);
+        let mu = data.miningUpgrades;
+
+        const progress = new Progress(spAmount, mu);
         return progress;
     }
 
@@ -54,13 +58,7 @@ class ProgressAPI {
             return null;
         }
         const data = await response.json();
-        const spAmount = parseInt(data.silverPennies);
-        if (isNaN(spAmount)) {
-            spAmount = 0;
-        }
-        const progress = new Progress(spAmount);
-        progress;
-        return progress;
+        return data;
     }
 
     async saveProgress(progress) {

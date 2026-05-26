@@ -1,7 +1,9 @@
 ﻿class Progress {
     silverPennies;
-    constructor(sp) {
+    miningUpgrades
+    constructor(sp, mu) {
         this.silverPennies = sp;
+        this.miningUpgrades = mu;
     }
 }
 

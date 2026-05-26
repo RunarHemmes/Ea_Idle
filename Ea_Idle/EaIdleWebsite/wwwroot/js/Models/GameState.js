@@ -8,10 +8,10 @@ class GameState {
     tickSpeed
     saveCooldown
     lastSaveTime
+    mu
 
-    constructor(tickSpeed = 1000, saveCooldown = 30000, sp = 0, spGain = 1, spCooldown = 5000) {
+    constructor(tickSpeed = 1000, saveCooldown = 30000, spGain = 1, spCooldown = 5000) {
         this.tickSpeed = tickSpeed;
-        this.sp = sp;
         this.spGain = spGain;
         this.spCooldown = spCooldown;
         this.saveCooldown = saveCooldown;
@@ -21,10 +21,11 @@ class GameState {
 
     ImportProgress(progress) {
         this.sp = progress.silverPennies;
+        this.mu = progress.miningUpgrades;
     }
 
     ExportProgress() {
-        const progress = new Progress(this.sp);
+        const progress = new Progress(this.sp, this.mu);
         return progress;
     }
 }
