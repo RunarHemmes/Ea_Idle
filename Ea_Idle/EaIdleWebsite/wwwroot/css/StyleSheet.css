@@ -382,18 +382,22 @@ CSS for desktop
         font-size: 3vh;
     }
 
-    #App {
+    .App {
         position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
-        margin-bottom: 0;
         left: 0;
         width: 85vw;
         height: 100vh;
         order: 2;
         margin-left: 15vw;
         padding: 0;
+    }
+
+    #App {
+        margin-bottom: 0;
+        height: 100vh;
     }
 
     .Fullscreen {
