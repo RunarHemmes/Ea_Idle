@@ -39,18 +39,18 @@ class Displays {
         this.AddNavBar();
         this.RemoveAllListeners();
         window.addEventListener("UpdateSpDisplay", this.UpdateSpDisplay.bind(this));
-        window.addEventListener("MU_Equipment_Bought", (e) => {
+        window.addEventListener("MU_Equipment_Bought", () => {
             this.UpdateMU("Equipment", this.gameState.mu.Equipment).bind(this);
-        })
-        window.addEventListener("MU_Miners_Bought", (e) => {
+        }); this.UpdateMU("Equipment", this.gameState.mu.Equipment);
+        window.addEventListener("MU_Miners_Bought", () => {
             this.UpdateMU("Miners", this.gameState.mu.Miners_Count).bind(this);
-        })
-        window.addEventListener("MU_Purity_Bought", (e) => {
+        }); this.UpdateMU("Miners", this.gameState.mu.Miners_Count);
+        window.addEventListener("MU_Purity_Bought", () => {
             this.UpdateMU("Purity", this.gameState.mu.Ore_Purity).bind(this);
-        })
-        window.addEventListener("MU_Price_Bought", (e) => {
+        }); this.UpdateMU("Purity", this.gameState.mu.Ore_Purity);
+        window.addEventListener("MU_Price_Bought", () => {
             this.UpdateMU("Price", this.gameState.mu.Ore_Price).bind(this);
-        })
+        }); this.UpdateMU("Price", this.gameState.mu.Ore_Price);
         this.UpdateSpDisplay();
     }
 

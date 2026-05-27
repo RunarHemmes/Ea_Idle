@@ -10,7 +10,7 @@ class GameState {
     lastSaveTime
     mu
 
-    constructor(tickSpeed = 1000, saveCooldown = 3000, spGain = 1, spCooldown = 10000) {
+    constructor(tickSpeed = 1000, saveCooldown = 10000, spGain = 1, spCooldown = 10000) {
         this.tickSpeed = tickSpeed;
         this.spGain = spGain;
         this.spCooldown = spCooldown;
@@ -25,7 +25,8 @@ class GameState {
     }
 
     ExportProgress() {
-        const progress = new Progress(this.sp, this.mu);
+        const copy = JSON.parse(JSON.stringify(this));
+        const progress = new Progress(copy.sp, copy.mu);
         return progress;
     }
 }
