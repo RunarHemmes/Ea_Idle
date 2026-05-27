@@ -35,7 +35,19 @@ class ProgressAPI {
         if (isNaN(spAmount)) {
             spAmount = 0;
         }
-        let mu = data.miningUpgrades;
+        var mu = data.miningUpgrades;
+        mu.Equipment.Bonus_mult /= 100;
+        mu.Miners_Count.Bonus_mult /= 100;
+        mu.Equipment.Extra = (mu.Equipment.Current_Bonus * mu.Equipment.Bonus_mult) - mu.Equipment.Current_Bonus;
+        mu.Miners_Count.Extra = (mu.Miners_Count.Current_Bonus * mu.Miners_Count.Bonus_mult) - mu.Miners_Count.Current_Bonus;
+        mu.Ore_Purity.Extra = (mu.Ore_Purity.Current_Bonus + mu.Ore_Purity.Bonus_add) - mu.Ore_Purity.Current_Bonus;
+        mu.Ore_Price.Extra = (mu.Ore_Price.Current_Bonus + mu.Ore_Price.Bonus_add) - mu.Ore_Price.Current_Bonus;
+        mu.Equipment.Extra = parseFloat(mu.Equipment.Extra.toFixed(2)); 
+        mu.Miners_Count.Extra = parseFloat(mu.Miners_Count.Extra.toFixed(2));
+        // mu.Ore_Price.Extra = parseInt(mu.Ore_Price.Extra.toFixed(2));
+        // mu.Ore_Purity.Extra = parseInt(mu.Ore_Purity.Extra.toFixed(2));
+
+
 
         const progress = new Progress(spAmount, mu);
         return progress;

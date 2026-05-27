@@ -28,25 +28,25 @@ namespace Ea_API.Models
                 { "Equipment", new Dictionary<string, int> {
                     { "Lvl", 0},
                     { "Price", 10},
-                    { "Current_Bonus", 0},
+                    { "Current_Bonus", 10},
                     { "Bonus_mult", 98}
                 } },
                 { "Miners_Count", new Dictionary<string, int> {
                     { "Lvl", 0},
                     { "Price", 250},
-                    { "Current_Bonus", 0},
+                    { "Current_Bonus", 10},
                     { "Bonus_mult", 50}
                 } },
                 { "Ore_Purity", new Dictionary<string, int> {
                     { "Lvl", 0},
                     { "Price", 20},
-                    { "Current_Bonus", 0},
+                    { "Current_Bonus", 1},
                     { "Bonus_add", 1}
                 } },
                 { "Ore_Price", new Dictionary<string, int> {
                     { "Lvl", 0},
                     { "Price", 20},
-                    { "Current_Bonus", 0},
+                    { "Current_Bonus", 1},
                     { "Bonus_add", 1}
                 } },
             };
