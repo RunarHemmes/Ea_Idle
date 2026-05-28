@@ -82,28 +82,36 @@ namespace Ea_API.Services
             {
                 return (false, "Important information is missing!");
             }
-            if (sp.Contains('-')) 
+            if (sp.Contains('-'))
             {
                 return (false, "Silver Pennies amount can not be negative.");
             }
-            //var expectedStructure = new Dictionary<string, HashSet<string>>
-            //{
-            //    { "Equipment", new HashSet<string> { "Lvl", "Price", "Current bonus", "Bonus mult" } },
-            //    { "Miners Count", new HashSet<string> { "Lvl", "Price", "Current bonus", "Bonus mult" } },
-            //    { "Ore Purity", new HashSet<string> { "Lvl", "Price", "Current bonus", "Bonus add" } },
-            //    { "Ore Price", new HashSet<string> { "Lvl", "Price", "Current bonus", "Bonus add" } }
-            //};
-            //if (expectedStructure.Count != mu.Count ||
-            //    !expectedStructure.Keys.ToHashSet().SetEquals(mu.Keys))
-            //    return (false, "Important information is missing!");
-            //foreach (var (outerKey, innerDict) in mu)
-            //{
-            //    if (!expectedStructure.TryGetValue(outerKey, out var expectedInnerKeys))
-            //        return (false, "Important information is missing!");
+            Dictionary<string, int[]> checks = new Dictionary<string, int[]> {
+                { "Equipment", new int[]{0, 1} },
+                { "Miners_Count", new int[]{0, 1} },
+                { "Ore_Price", new int[]{0, 1} },
+                { "Ore_Purity", new int[]{0, 1} },
+                { "Lvl", new int[]{0, 4} },
+                { "Price", new int[]{0, 4} },
+                { "Current_Bonus", new int[]{0, 4} },
+                { "Bonus_mult", new int[]{0, 2} },
+                { "Bonus_add", new int[]{0, 2} } };
 
-            //    if (!expectedInnerKeys.SetEquals(innerDict.Keys))
-            //        return (false, "Important information is missing!");
-            //}
+            foreach ((string key1, Dictionary<string, float> upgrade) in mu)
+            {
+                checks[key1][0]++;
+                foreach ((string key2, float value) in upgrade)
+                {
+                    checks[key2][0]++;
+                }
+            }
+            foreach (int[] values in checks.Values)
+            {
+                if (values[0] != values[1])
+                {
+                    return (false, "The upgrades were given in an incorrect format");
+                }
+            }
             return (true, null);
         }
 
