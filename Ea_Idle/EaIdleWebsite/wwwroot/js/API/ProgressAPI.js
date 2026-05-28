@@ -36,12 +36,12 @@ class ProgressAPI {
             spAmount = 0;
         }
         var mu = data.miningUpgrades;
-        mu.Equipment.Bonus_mult /= 100;
-        mu.Miners_Count.Bonus_mult /= 100;
-        mu.Equipment.Current_Bonus /= 100;
-        mu.Miners_Count.Current_Bonus /= 100;
-        mu.Ore_Price.Current_Bonus /= 100;
-        mu.Ore_Purity.Current_Bonus /= 100;
+        // mu.Equipment.Bonus_mult /= 100;
+        // mu.Miners_Count.Bonus_mult /= 100;
+        // mu.Equipment.Current_Bonus /= 100;
+        // mu.Miners_Count.Current_Bonus /= 100;
+        // mu.Ore_Price.Current_Bonus /= 100;
+        // mu.Ore_Purity.Current_Bonus /= 100;
 
         mu.Equipment.Extra = (mu.Equipment.Current_Bonus * mu.Equipment.Bonus_mult) - mu.Equipment.Current_Bonus;
         mu.Miners_Count.Extra = (mu.Miners_Count.Current_Bonus * mu.Miners_Count.Bonus_mult) - mu.Miners_Count.Current_Bonus;
@@ -80,18 +80,18 @@ class ProgressAPI {
 
     async saveProgress(progress) {
         const token = sessionStorage.token;
-        progress.miningUpgrades.Equipment.Bonus_mult *= 100;
-        progress.miningUpgrades.Miners_Count.Bonus_mult *= 100;
-        progress.miningUpgrades.Equipment.Current_Bonus *= 100;
-        progress.miningUpgrades.Miners_Count.Current_Bonus *= 100;
-        progress.miningUpgrades.Ore_Price.Current_Bonus *= 100;
-        progress.miningUpgrades.Ore_Purity.Current_Bonus *= 100;
-        progress.miningUpgrades.Equipment.Bonus_mult = parseInt(progress.miningUpgrades.Equipment.Bonus_mult.toFixed(0));
-        progress.miningUpgrades.Miners_Count.Bonus_mult = parseInt(progress.miningUpgrades.Miners_Count.Bonus_mult.toFixed(0));
-        progress.miningUpgrades.Equipment.Current_Bonus = parseInt(progress.miningUpgrades.Equipment.Current_Bonus.toFixed(0));
-        progress.miningUpgrades.Miners_Count.Current_Bonus = parseInt(progress.miningUpgrades.Miners_Count.Current_Bonus.toFixed(0));
-        progress.miningUpgrades.Ore_Price.Current_Bonus = parseInt(progress.miningUpgrades.Ore_Price.Current_Bonus.toFixed(0));
-        progress.miningUpgrades.Ore_Purity.Current_Bonus = parseInt(progress.miningUpgrades.Ore_Purity.Current_Bonus.toFixed(0));
+        // progress.miningUpgrades.Equipment.Bonus_mult *= 100;
+        // progress.miningUpgrades.Miners_Count.Bonus_mult *= 100;
+        // progress.miningUpgrades.Equipment.Current_Bonus *= 100;
+        // progress.miningUpgrades.Miners_Count.Current_Bonus *= 100;
+        // progress.miningUpgrades.Ore_Price.Current_Bonus *= 100;
+        // progress.miningUpgrades.Ore_Purity.Current_Bonus *= 100;
+        // progress.miningUpgrades.Equipment.Bonus_mult = parseInt(progress.miningUpgrades.Equipment.Bonus_mult.toFixed(0));
+        // progress.miningUpgrades.Miners_Count.Bonus_mult = parseInt(progress.miningUpgrades.Miners_Count.Bonus_mult.toFixed(0));
+        // progress.miningUpgrades.Equipment.Current_Bonus = parseInt(progress.miningUpgrades.Equipment.Current_Bonus.toFixed(0));
+        // progress.miningUpgrades.Miners_Count.Current_Bonus = parseInt(progress.miningUpgrades.Miners_Count.Current_Bonus.toFixed(0));
+        // progress.miningUpgrades.Ore_Price.Current_Bonus = parseInt(progress.miningUpgrades.Ore_Price.Current_Bonus.toFixed(0));
+        // progress.miningUpgrades.Ore_Purity.Current_Bonus = parseInt(progress.miningUpgrades.Ore_Purity.Current_Bonus.toFixed(0));
         delete progress.miningUpgrades.Equipment.Extra;
         delete progress.miningUpgrades.Miners_Count.Extra;
         delete progress.miningUpgrades.Ore_Price.Extra;

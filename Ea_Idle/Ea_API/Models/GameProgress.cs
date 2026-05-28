@@ -12,7 +12,7 @@ namespace Ea_API.Models
 
         public string SilverPennies { get; set; }
 
-        public Dictionary<string, Dictionary<string, int>> MiningUpgrades { get; set; }
+        public Dictionary<string, Dictionary<string, float>> MiningUpgrades { get; set; }
 
         public GameProgress(int accountId)
         {
@@ -23,30 +23,30 @@ namespace Ea_API.Models
         public void SetDefault()
         {
             SilverPennies = "0";
-            MiningUpgrades = new Dictionary<string, Dictionary<string, int>>
+            MiningUpgrades = new Dictionary<string, Dictionary<string, float>>
             {
-                { "Equipment", new Dictionary<string, int> {
+                { "Equipment", new Dictionary<string, float> {
                     { "Lvl", 0},
                     { "Price", 10},
-                    { "Current_Bonus", 1000},
-                    { "Bonus_mult", 98}
+                    { "Current_Bonus", 10},
+                    { "Bonus_mult", 0.98f}
                 } },
-                { "Miners_Count", new Dictionary<string, int> {
+                { "Miners_Count", new Dictionary<string, float> {
                     { "Lvl", 0},
                     { "Price", 250},
-                    { "Current_Bonus", 1000},
-                    { "Bonus_mult", 50}
+                    { "Current_Bonus", 10},
+                    { "Bonus_mult", 0.5f}
                 } },
-                { "Ore_Purity", new Dictionary<string, int> {
+                { "Ore_Purity", new Dictionary<string, float> {
                     { "Lvl", 0},
                     { "Price", 20},
-                    { "Current_Bonus", 100},
+                    { "Current_Bonus", 1},
                     { "Bonus_add", 1}
                 } },
-                { "Ore_Price", new Dictionary<string, int> {
+                { "Ore_Price", new Dictionary<string, float> {
                     { "Lvl", 0},
                     { "Price", 20},
-                    { "Current_Bonus", 100},
+                    { "Current_Bonus", 1},
                     { "Bonus_add", 1}
                 } },
             };

@@ -17,7 +17,7 @@ namespace Ea_API.Data
             modelBuilder.Entity<GameProgress>().Property(e => e.MiningUpgrades)
                 .HasConversion(
                 v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                v => JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, int>>>(v, (JsonSerializerOptions)null));
+                v => JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, float>>>(v, (JsonSerializerOptions)null));
 
             modelBuilder.Entity<Account>().HasData(
                 new(1, "Harold", "passwordHarold", "Harold@mail.com", "Player", 123456),

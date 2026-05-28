@@ -77,7 +77,7 @@ namespace Ea_API.Services
         public (bool succes, string? message) ValidateProgressValues(GameProgress progress)
         {
             string sp = progress.SilverPennies;
-            Dictionary<string, Dictionary<string, int>> mu = progress.MiningUpgrades;
+            Dictionary<string, Dictionary<string, float>> mu = progress.MiningUpgrades;
             if (string.IsNullOrWhiteSpace(sp))
             {
                 return (false, "Important information is missing!");
