@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Ea_API.Models;
+﻿using Ea_API.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace Ea_API.Data
 {
@@ -13,6 +14,11 @@ namespace Ea_API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<GameProgress>().Property(e => e.MiningUpgrades)
+                .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, float>>>(v, (JsonSerializerOptions)null));
+
             modelBuilder.Entity<Account>().HasData(
                 new(1, "Harold", "passwordHarold", "Harold@mail.com", "Player", 123456),
                 new(2, "John", "passwordJohn", "John@mail.com", "Parent", 666666)
