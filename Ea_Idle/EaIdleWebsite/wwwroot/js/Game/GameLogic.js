@@ -2,6 +2,7 @@
     gameState
     tickInterval
     progressAPI
+    tickStarted
     constructor(gameState, progressAPI) {
         this.gameState = gameState;
         this.progressAPI = progressAPI;
@@ -18,12 +19,14 @@
     }
 
     MainGameLoop() {
+        this.tickStarted = Date.now();
         if (Date.now() - this.gameState.lastSpTime >= this.gameState.spCooldown) {
             this.GainSp();
         }
         if (Date.now() - this.gameState.lastSaveTime >= this.gameState.saveCooldown) {
             this.SaveGame();
         }
+        console.log(Date.now() - this.tickStarted)
     }
 
     async SaveGame() {
