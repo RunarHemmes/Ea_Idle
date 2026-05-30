@@ -1,5 +1,7 @@
 <Solution>
   <Project Path="EaIdleWebsite/EaIdleWebsite.csproj" Id="dae8e274-eeb0-4ce6-8a02-bc33ca0fbf8e" />
   <Project Path="Ea_API/Ea_API.csproj" Id="d351ed49-669f-40df-886a-dfda9a169c29" />
-  <Project Path="Ea_Idle_Test/Ea_Idle_Test.csproj" Id="a5468f9f-b554-4028-aba2-82d3fd056f1a" />
+  <Project Path="Ea_Idle_Test/Ea_Idle_Test.csproj" Id="a5468f9f-b554-4028-aba2-82d3fd056f1a">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
 </Solution>

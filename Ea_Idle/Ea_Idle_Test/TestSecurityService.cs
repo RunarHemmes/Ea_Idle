@@ -15,6 +15,7 @@ namespace Ea_Idle_Test
             _securityService = new SecurityService();
         }
 
+
         [TestMethod]
         [DataRow("", "", "Important information is missing!", DisplayName = "All empty")]
         [DataRow("", "Password123", "Important information is missing!", DisplayName = "Username empty")]
@@ -32,6 +33,7 @@ namespace Ea_Idle_Test
             Assert.AreEqual<string>(msg, message);
         }
 
+
         [TestMethod]
         [DataRow("MyUsername", "Password123", DisplayName = "All normal")]
         [DataRow("This_Username_Has_To_Be_Fifty_Characters_Long_yay!", "Password123", DisplayName = "Username 50 characters")]
@@ -46,6 +48,7 @@ namespace Ea_Idle_Test
             Assert.IsTrue(succes);
             Assert.IsNull(msg);
         }
+
 
         [TestMethod]
         [DataRow("", "", "", "", "" ,"Important information is missing!", DisplayName = "All empty")]
@@ -72,6 +75,7 @@ namespace Ea_Idle_Test
             Assert.AreEqual<string>(msg, message);
         }
 
+
         [TestMethod]
         [DataRow("MyUsername", "mymail@mail.com", "Password123", "Password123", "Player", DisplayName = "All normal")]
         [DataRow("This_Username_Has_To_Be_Fifty_Characters_Long_yay!", "mymail@mail.com", "Password123", "Password123", "Player", DisplayName = "Username 50 characters")]
@@ -87,6 +91,7 @@ namespace Ea_Idle_Test
             Assert.IsNull(msg);
         }
 
+
         [TestMethod]
         [DataRow(24, 20, 30, "The hour must be within 0-23.", DisplayName = "Hour too high")]
         [DataRow(10, 60, 30, "The minute and second must be within 0-59.", DisplayName = "Minute too high")]
@@ -101,6 +106,7 @@ namespace Ea_Idle_Test
             Assert.IsFalse(succes);
             Assert.AreEqual<string>(msg, message);
         }
+
 
         [TestMethod]
         [DataRow(10, 20, 30, DisplayName = "All normal")]
@@ -118,19 +124,60 @@ namespace Ea_Idle_Test
             Assert.IsNull(msg);
         }
 
+
         [TestMethod]
-        [DataRow("", "Important information is missing!", DisplayName = "Sp empty")]
-        [DataRow("-20", "Silver Pennies amount can not be negative.", DisplayName = "Sp negative amount")]
-        public void ProgressValidationReturnsFalse(string sp, string message)
+        [DataRow("", null, 0, "Important information is missing!", DisplayName = "Sp empty")]
+        [DataRow("-20", null, 0, "Silver Pennies amount can not be negative.", DisplayName = "Sp negative amount")]
+        [DataRow("20", "Equipment", 1, "The upgrades were given in an incorrect format", DisplayName = "Too many Equipment")]
+        [DataRow("20", "Equipment", -1, "The upgrades were given in an incorrect format", DisplayName = "Too few Equipment")]
+        [DataRow("20", "Miners_Count", 1, "The upgrades were given in an incorrect format", DisplayName = "Too many Miners_Count")]
+        [DataRow("20", "Miners_Count", -1, "The upgrades were given in an incorrect format", DisplayName = "Too few Miners_Count")]
+        [DataRow("20", "Ore_Price", 1, "The upgrades were given in an incorrect format", DisplayName = "Too many Ore_Price")]
+        [DataRow("20", "Ore_Price", -1, "The upgrades were given in an incorrect format", DisplayName = "Too few Ore_Price")]
+        [DataRow("20", "Ore_Purity", 1, "The upgrades were given in an incorrect format", DisplayName = "Too many Ore_Purity")]
+        [DataRow("20", "Ore_Purity", -1, "The upgrades were given in an incorrect format", DisplayName = "Too few Ore_Purity")]
+        [DataRow("20", "Lvl", 1, "The upgrades were given in an incorrect format", DisplayName = "Too many Lvl")]
+        [DataRow("20", "Lvl", -1, "The upgrades were given in an incorrect format", DisplayName = "Too few Lvl")]
+        [DataRow("20", "Price", 1, "The upgrades were given in an incorrect format", DisplayName = "Too many Price")]
+        [DataRow("20", "Price", -1, "The upgrades were given in an incorrect format", DisplayName = "Too few Price")]
+        [DataRow("20", "Current_Bonus", 1, "The upgrades were given in an incorrect format", DisplayName = "Too many Current_Bonus")]
+        [DataRow("20", "Current_Bonus", -1, "The upgrades were given in an incorrect format", DisplayName = "Too few Current_Bonus")]
+        [DataRow("20", "Bonus_mult", 1, "The upgrades were given in an incorrect format", DisplayName = "Too many Bonus_mult")]
+        [DataRow("20", "Bonus_mult", -1, "The upgrades were given in an incorrect format", DisplayName = "Too few Bonus_mult")]
+        [DataRow("20", "Bonus_add", 1, "The upgrades were given in an incorrect format", DisplayName = "Too many Bonus_add")]
+        [DataRow("20", "Bonus_add", -1, "The upgrades were given in an incorrect format", DisplayName = "Too few Bonus_add")]
+        public void ProgressValidationReturnsFalse(string sp, string keyWrong, int add, string message)
         {
             GameProgress progress = new(0);
             progress.SilverPennies = sp;
+            if (add > 0)
+            {
+                try
+                {
+                progress.MiningUpgrades.Add(keyWrong, new Dictionary<string, float> { { "Lvl", 0.0f } });
+                } catch
+                {
+                    progress.MiningUpgrades["Equipment"].Add(keyWrong, 0.0f);
+                }
+            } else if (add < 0)
+            {
+                if (!progress.MiningUpgrades.Remove(keyWrong))
+                {
+                    if (!progress.MiningUpgrades["Equipment"].Remove(keyWrong))
+                    {
+                        progress.MiningUpgrades["Ore_Price"].Remove(keyWrong);
+                    }
+
+                }
+
+            }
 
             (bool succes, string? msg) = _securityService.ValidateProgressValues(progress);
 
             Assert.IsFalse(succes);
             Assert.AreEqual<string>(msg, message);
         }
+
 
         [TestMethod]
         [DataRow("20", DisplayName = "All normal")]
@@ -147,6 +194,7 @@ namespace Ea_Idle_Test
             Assert.IsNull(msg);
         }
 
+
         [TestMethod]
         [DataRow(92750, "The connection code should be 6 digits.", DisplayName = "Code too short")]
         [DataRow(9275021, "The connection code should be 6 digits.", DisplayName = "Code too long")]
@@ -159,6 +207,7 @@ namespace Ea_Idle_Test
             Assert.AreEqual<string>(msg, message);
         }
 
+
         [TestMethod]
         [DataRow(927502, DisplayName = "All normal")]
         [DataRow(111111, DisplayName = "Code is all one number")]
@@ -170,6 +219,7 @@ namespace Ea_Idle_Test
             Assert.IsTrue(succes);
             Assert.IsNull(msg);
         }
+
 
         [TestMethod]
         public void CodeGeneratorReturnsValidCode()

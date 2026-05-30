@@ -8,6 +8,7 @@ import Progress from '../Models/Progress.js';
 import Authenticator from '../SPA/Authentication.js';
 import User from '../Models/User.js';
 import Settings from '../SPA/Settings.js';
+import GameButtons from '../Game/GameButtons.js';
 
 class App {
     router
@@ -19,6 +20,7 @@ class App {
     authenticator
     user
     settings
+    gameButtons
      
     constructor() {
         this.user = new User(null, null);
@@ -29,6 +31,7 @@ class App {
         this.router = new Router(this.user);
         this.gameState = new GameState();
         this.gameLogic = new GameLogic(this.gameState, this.progressAPI);
+        this.gameButtons = new GameButtons(this.gameLogic);
         this.displays = new Displays(this.gameState, this.user);
 
         this.router.Init();
