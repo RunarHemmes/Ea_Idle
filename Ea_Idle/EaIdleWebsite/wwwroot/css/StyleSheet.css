@@ -53,6 +53,10 @@ h2 {
     margin-bottom: 12px;
 }
 
+.Credits_P {
+    margin: 5px;
+}
+
 .Settings_Page {
     display: flex;
     flex-direction: column;
@@ -70,9 +74,9 @@ h2 {
     background-color: #111111;
 }
 
-    .Nav_Btn:focus {
-        background-color: #333442;
-    }
+.Nav_Btn:focus {
+    background-color: #333442;
+}
 
 .Nav_Txt {
     display: none;
