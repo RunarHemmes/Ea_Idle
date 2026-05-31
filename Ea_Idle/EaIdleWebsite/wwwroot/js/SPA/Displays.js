@@ -39,6 +39,18 @@ class Displays {
         this.AddNavBar();
         this.RemoveAllListeners();
         window.addEventListener("UpdateSpDisplay", this.UpdateSpDisplay.bind(this));
+        window.addEventListener("MU_Equipment_Bought", () => {
+            this.UpdateMU("Equipment", this.gameState.mu.Equipment).bind(this);
+        }); this.UpdateMU("Equipment", this.gameState.mu.Equipment);
+        window.addEventListener("MU_Miners_Bought", () => {
+            this.UpdateMU("Miners", this.gameState.mu.Miners_Count).bind(this);
+        }); this.UpdateMU("Miners", this.gameState.mu.Miners_Count);
+        window.addEventListener("MU_Purity_Bought", () => {
+            this.UpdateMU("Purity", this.gameState.mu.Ore_Purity).bind(this);
+        }); this.UpdateMU("Purity", this.gameState.mu.Ore_Purity);
+        window.addEventListener("MU_Price_Bought", () => {
+            this.UpdateMU("Price", this.gameState.mu.Ore_Price).bind(this);
+        }); this.UpdateMU("Price", this.gameState.mu.Ore_Price);
         this.UpdateSpDisplay();
     }
 
@@ -121,6 +133,18 @@ class Displays {
 
     UpdateSpDisplay() {
         document.getElementById("Sp_Display").innerText = this.gameState.sp;
+    }
+
+    UpdateMU(name, values) {
+        document.getElementById(`${name}_Lvl`).innerText = values.Lvl;
+        document.getElementById(`${name}_Price`).innerText = values.Price;
+        document.getElementById(`${name}_Bonus`).innerText = values.Current_Bonus;
+        // try {
+        //     var extra = values.Bonus_add;
+        // } catch {
+        //     var extra = values.Bonus_mult;
+        // }
+        document.getElementById(`${name}_Extra`).innerText = values.Extra;
     }
 }
 

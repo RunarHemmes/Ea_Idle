@@ -14,6 +14,7 @@ namespace Ea_API.Services
         private readonly IAccountRepository _repo;
         private readonly ITokenService _tokenService;
         private readonly ISecurityService _securityService;
+
         public AccountService(IAccountRepository repo, ITokenService tokenService, ISecurityService securityService)
         {
             _repo = repo;
@@ -27,7 +28,7 @@ namespace Ea_API.Services
 
             if (userAccount != null)
             {
-                if (userAccount.Password == loginRequest.Password)
+                if (PasswordHelper.VerifyPassword(loginRequest.Password, userAccount.Password))
                 {
                     LoginModel user = new(userAccount.Username, userAccount.Role, userAccount.Id, connectionCode: userAccount.ConnectionCode);
                     return (true, user, null);
@@ -48,7 +49,8 @@ namespace Ea_API.Services
                         highestId = 0;
                     }
                     int connectionCode = _securityService.GenerateConnectionCode();
-                    Account newAccount = new(highestId.Value + 1, registerRequest.Username, registerRequest.Password, registerRequest.Email, registerRequest.Role, connectionCode);
+                    string hashedPassword = PasswordHelper.HashPassword(registerRequest.Password);
+                    Account newAccount = new(highestId.Value + 1, registerRequest.Username, hashedPassword, registerRequest.Email, registerRequest.Role, connectionCode);
                     newAccount = _repo.Add(newAccount);
                     LoginModel registerReturn = new(newAccount.Username, newAccount.Role, newAccount.Id);
                     return (true, registerReturn, null);

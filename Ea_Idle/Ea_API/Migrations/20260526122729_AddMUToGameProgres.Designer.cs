@@ -3,6 +3,7 @@ using System;
 using Ea_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ea_API.Migrations
 {
     [DbContext(typeof(EaIdleDbContext))]
-    partial class EaIdleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260526122729_AddMUToGameProgres")]
+    partial class AddMUToGameProgres
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.5");
@@ -52,7 +55,7 @@ namespace Ea_API.Migrations
                             Id = 1,
                             ConnectionCode = 123456,
                             Email = "Harold@mail.com",
-                            Password = "fSP67HucoSVmtUinGSITVQ==.tceWYgZT5EE3khRFS1Y5/L6A8K3GhUyvqUHxiNFcnXU=",
+                            Password = "passwordHarold",
                             Role = "Player",
                             Username = "Harold"
                         },
@@ -61,7 +64,7 @@ namespace Ea_API.Migrations
                             Id = 2,
                             ConnectionCode = 666666,
                             Email = "John@mail.com",
-                            Password = "qB2uM3X3+C1wob9GYHZy3A==./Fmbnk5d3hpyoopv0/9/Nsb5kfMAjbP5yWAFo6+xb7o=",
+                            Password = "passwordJohn",
                             Role = "Parent",
                             Username = "John"
                         });
