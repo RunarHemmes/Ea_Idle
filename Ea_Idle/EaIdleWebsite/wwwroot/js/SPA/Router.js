@@ -14,9 +14,9 @@
             "/Tharni": { filePath: '../../views/notImplemented.html', requiresAuth: true },
             "/Castar": { filePath: '../../views/notImplemented.html', requiresAuth: true },
             "/Silmaril": { filePath: '../../views/notImplemented.html', requiresAuth: true },
-            "/Help": { filePath: '../../views/notImplemented.html', requiresAuth: true },
+            "/Help": { filePath: '../../views/help.html', requiresAuth: true },
             "/Settings": { filePath: '../../views/settings.html', requiresAuth: true },
-            "/Credits": { filePath: '../../views/notImplemented.html', requiresAuth: true },
+            "/Credits": { filePath: '../../views/credits.html', requiresAuth: true },
         }
         this.notFound = "<h1>404</h1><p>Not found.</p>";
     }

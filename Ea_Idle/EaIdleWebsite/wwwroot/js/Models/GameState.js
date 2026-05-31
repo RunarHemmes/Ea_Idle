@@ -10,7 +10,7 @@ class GameState {
     lastSaveTime
     mu
 
-    constructor(tickSpeed = 500, saveCooldown = 300000, spGain = 1, spCooldown = 10000) {
+    constructor(tickSpeed = 50, saveCooldown = 30000, sp = 0, spGain = 1, spCooldown = 5000) {
         this.tickSpeed = tickSpeed;
         this.spGain = spGain;
         this.spCooldown = spCooldown;
